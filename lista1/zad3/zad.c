@@ -3,7 +3,7 @@
 
 #define LED_DDR DDRD
 #define LED_PORT PORTD
-
+//xD
 void left()
 {
   _delay_ms(200);
