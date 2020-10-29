@@ -9,9 +9,9 @@
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
 
-#define LED PB5
-#define LED_DDR DDRB
-#define LED_PORT PORTB
+#define BUZZ PB5
+#define BUZZ_DDR DDRB
+#define BUZZ_PORT PORTB
 
 
 #define c 955   // done
@@ -124,7 +124,7 @@ int main() {
   BUZZ_DDR |= _BV(BUZZ);
 
   while (1) {
-    //TONE(e2,1000);
+    //TONE(g,1000);
 
     //TONE(pgm_read_word(&utwor[2]),pgm_read_word(&tempo[2]));
 
