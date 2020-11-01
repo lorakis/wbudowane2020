@@ -13,30 +13,45 @@
 #define BUZZ_DDR DDRB
 #define BUZZ_PORT PORTB
 
-
+#define F 1400
+#define G 1275
+#define A 1160
+#define B 1100
+#define H 1050
 #define c 955   // done
+#define cis 920
 #define d 852 // done
 #define e 758   // done
 #define f 716 // done
+#define fis 690
 #define g 638 // done
 #define a 568 // done
+#define b 530
 #define h 506 // done
 #define c2 478  // done
 #define d2 426  // done
 #define e2 380
-#define x 40000
+#define f2 327
+#define fis2 300
+#define g2 280
+#define x 30000
 
 #define n1 1600
 #define n2 800
 #define n4 400
+#define n6 300
 #define n8 200
+#define n16 100
 #define TONE(step, delay) \
-    for (uint16_t i = 0; i < (uint32_t)1000 * (delay) / (step) / 2; i++) { \
-      BUZZ_PORT |= _BV(BUZZ); \
-      _delay_us(step); \
-      BUZZ_PORT &= ~_BV(BUZZ); \
-      _delay_us(step); \
-    }
+    if(step == 30000) { _delay_ms(delay); } \
+    else { \
+      for (uint16_t i = 0; i < (uint32_t)1000 * (delay) / (step) / 2; i++) { \
+        BUZZ_PORT |= _BV(BUZZ); \
+        _delay_us(step); \
+        BUZZ_PORT &= ~_BV(BUZZ); \
+        _delay_us(step); \
+      } \
+    } \
 
 void delay(int time)
 {
@@ -76,45 +91,100 @@ int uart_receive(FILE *stream)
 
 FILE uart_file;
 
-static const uint16_t utwor[] PROGMEM = {
-  x, g,
-  e, g, e2, e2,
-  c2, c2, g,
-  e, g, c2, c2,
-  h, x, h,
-  a, a, h, h,
-  a, a, a,
-  g, g, a, a,
-  g, x, g,
-  a, h,
-  c2, d2,
-  e2,
-  c2, x, e2,
-  d2, d2,
-  a, h,
-  c2, c2
-};
-
-static const int tempo[] PROGMEM = {
-  n2, n4,
-  n4, n4, n4, n4,
-  n4, n2, n4,
-  n4, n4, n4, n4,
-  n2, n4, n4,
-  n4, n4, n4, n4,
-  n4, n2, n4,
-  n4, n4, n4, n4,
-  n2, n4, n4,
-  n2, n2,
-  n2, n2,
-  n1,
-  n2, n4, n4,
-  n2, n2,
-  n2, n2,
-  n1, n4
+static const uint16_t darude[] PROGMEM = {
+  h, h, h, h, h, x, //6
+  h, h, h, h, h, h, h, //7
+  e2, e2, e2, e2, e2, e2, e2, //7
+  d2, d2, d2, d2, d2, d2, d2, //7
+  a, //1
+  h, h, h, h, h, h, x, //7
+  h, h, h, h, h, h, x, //7
+  h, e2,
+  h, h, h, h, h, x, //6
+  h, h, h, h, h, h, h, d2 //8
+ //58
 };
 
 
+
+static const int darude_tempo[] PROGMEM = {
+  n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8,
+  n4,
+  n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8,
+  n8, n4,
+  n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n4
+};
+
+static const uint16_t astro[] PROGMEM = {
+  G, x, G, d, c, x, B, x,
+  A, x, A, A, c, x, B, A,
+  G, x, G, b, a, b, a, b,
+  G, x, G, b, a, b, a, b,
+  G, x, G, d, c, x, B, x,
+  A, x, A, A, c, x, B, A,
+  G, x, G, b, a, b, a, b,
+  G, x, G, b, a, b, a, b,
+
+  G, x, G, d, c, x, B, x,
+  A, x, A, A, c, x, B, A,
+  G, x, G, b, a, b, a, b,
+  G, x, G, b, a, b, a, b,
+  B, B, B, B, d, d, d, d,
+  c, c, c, c, f, f, f, f,
+  g, g, g, g, g, g, g, g,
+  g, g, g, g, c, B, A, F
+
+};
+
+
+
+static const int astro_tempo[] PROGMEM = {
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8
+};
+
+static const uint16_t spooky[] PROGMEM = {
+  g, g, fis, fis, H, d, H, H, //8
+  g, g, fis, fis, H, x, x, //7
+  g, g, fis, fis, H, d, H, //7
+  d, e, cis, d, H, x, x, //7
+  g2, g2, fis2, fis2, h, d2, h, x, //8
+  g, g, fis, fis, H, x, x, fis, //8
+  g2, g2, fis2, fis2, h, d2, h, H, cis, //9
+  d, e, cis, d, H, x, x //7
+
+};
+
+static const uint16_t spooky_tempo[] PROGMEM = {
+  n8, n8, n8, n8, n8, n16, n6, n8,
+  n16, n6, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n8, n4,
+  n8, n8, n8, n8, n8, n8,
+  n8, n8, n8, n8, n8, n16, n6, n8,
+  n8, n8, n8, n8, n8, n8, n8, n8,
+  n8, n16, n6, n8, n16, n6, n16, n16,
+  n8, n8, n8, n8, n8, n8, n8
+};
 int main() {
   // zainicjalizuj UART
   uart_init();
@@ -128,12 +198,12 @@ int main() {
 
     //TONE(pgm_read_word(&utwor[2]),pgm_read_word(&tempo[2]));
 
-    for(int i = 0; i < 44; i++)
+    for(int i = 0; i < 128; i++)
     {
       //TONE(pgm_read_byte(&utwor[i]),pgm_read_byte(&tempo[i]));
 
-      int wartosc = pgm_read_word(&utwor[i]);
-      int dlugosc = pgm_read_word(&tempo[i]);
+      int wartosc = pgm_read_word(&astro[i]);
+      int dlugosc = pgm_read_word(&astro_tempo[i]);
       TONE(wartosc,dlugosc);
 
       _delay_ms(10);
