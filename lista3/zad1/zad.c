@@ -138,7 +138,7 @@ static const uint16_t astro[] PROGMEM = {
   c, c, c, c, f, f, f, f,
   g, g, g, g, g, g, g, g,
   g, g, g, g, c, B, A, F
-
+  //128
 };
 
 
@@ -172,6 +172,7 @@ static const uint16_t spooky[] PROGMEM = {
   g, g, fis, fis, H, x, x, fis, //8
   g2, g2, fis2, fis2, h, d2, h, H, cis, //9
   d, e, cis, d, H, x, x //7
+  //61
 
 };
 
