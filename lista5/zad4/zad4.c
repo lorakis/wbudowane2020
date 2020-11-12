@@ -5,6 +5,7 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 #include <avr/sleep.h>
+#include <stdbool.h>
 
 #define BAUD 9600                          // baudrate
 #define UBRR_VALUE ((F_CPU)/16/(BAUD)-1)   // zgodnie ze wzorem
@@ -51,6 +52,7 @@ void timer_init()
 }
 
 bool f = false;
+int val;
 
 ISR(TIMER1_CAPT_vect)
 {
@@ -62,7 +64,8 @@ ISR(TIMER1_CAPT_vect)
   else
   {
 		f = false;
-		printf("%d\r\n", 62500 / ICR1);
+    val = 62500 / ICR1;
+    //printf("%d\r\n", 62500 / ICR1);
 	}
 }
 
@@ -82,5 +85,9 @@ int main()
 	while (1)
   {
 		sleep_mode();
+    cli();
+    int x = val;
+    sei();
+    printf("%d\r\n", x);
 	}
 }
