@@ -2193,9 +2193,9 @@ void adc_init()
     122e:	80 68       	ori	r24, 0x80	; 128
     1230:	80 93 7a 00 	sts	0x007A, r24	; 0x80007a <__TEXT_REGION_LENGTH__+0x7e007a>
     float Uwyj = 5.0 * v / 1024.0;
-    float R = (Uwyj * 220.0) / (5.0-Uwyj);
-    float B = 63512;
-    float T = 1.0/( (log(R/220.0)/B) + (1.0/(25.0+273.0)) ) - 273;
+    float R = (Uwyj * 10000.0) / (5.0-Uwyj);
+    float B = 368123; //ln(5700/4700)/( (1/(25+273)) - (1/(23+273)))
+    float T = 1.0/( (log(R/10000.0)/B) + (1.0/(25.0+273.0)) ) - 273;
 
     printf("Odczytano: %f\r\n", T);
     1234:	c0 e0       	ldi	r28, 0x00	; 0
@@ -2237,13 +2237,13 @@ void adc_init()
     1278:	0e 94 7b 0b 	call	0x16f6	; 0x16f6 <__mulsf3>
     127c:	6b 01       	movw	r12, r22
     127e:	7c 01       	movw	r14, r24
-    float R = (Uwyj * 220.0) / (5.0-Uwyj);
-    float B = 63512;
-    float T = 1.0/( (log(R/220.0)/B) + (1.0/(25.0+273.0)) ) - 273;
+    float R = (Uwyj * 10000.0) / (5.0-Uwyj);
+    float B = 368123; //ln(5700/4700)/( (1/(25+273)) - (1/(23+273)))
+    float T = 1.0/( (log(R/10000.0)/B) + (1.0/(25.0+273.0)) ) - 273;
     1280:	20 e0       	ldi	r18, 0x00	; 0
-    1282:	30 e0       	ldi	r19, 0x00	; 0
-    1284:	4c e5       	ldi	r20, 0x5C	; 92
-    1286:	53 e4       	ldi	r21, 0x43	; 67
+    1282:	30 e4       	ldi	r19, 0x40	; 64
+    1284:	4c e1       	ldi	r20, 0x1C	; 28
+    1286:	56 e4       	ldi	r21, 0x46	; 70
     1288:	0e 94 7b 0b 	call	0x16f6	; 0x16f6 <__mulsf3>
     128c:	4b 01       	movw	r8, r22
     128e:	5c 01       	movw	r10, r24
@@ -2260,17 +2260,17 @@ void adc_init()
     12a6:	b4 01       	movw	r22, r8
     12a8:	0e 94 2b 0a 	call	0x1456	; 0x1456 <__divsf3>
     12ac:	20 e0       	ldi	r18, 0x00	; 0
-    12ae:	30 e0       	ldi	r19, 0x00	; 0
-    12b0:	4c e5       	ldi	r20, 0x5C	; 92
-    12b2:	53 e4       	ldi	r21, 0x43	; 67
+    12ae:	30 e4       	ldi	r19, 0x40	; 64
+    12b0:	4c e1       	ldi	r20, 0x1C	; 28
+    12b2:	56 e4       	ldi	r21, 0x46	; 70
     12b4:	0e 94 2b 0a 	call	0x1456	; 0x1456 <__divsf3>
     12b8:	0e 94 33 0b 	call	0x1666	; 0x1666 <log>
 
     printf("Odczytano: %f\r\n", T);
-    12bc:	20 e0       	ldi	r18, 0x00	; 0
-    12be:	38 e1       	ldi	r19, 0x18	; 24
-    12c0:	48 e7       	ldi	r20, 0x78	; 120
-    12c2:	57 e4       	ldi	r21, 0x47	; 71
+    12bc:	20 e6       	ldi	r18, 0x60	; 96
+    12be:	3f eb       	ldi	r19, 0xBF	; 191
+    12c0:	43 eb       	ldi	r20, 0xB3	; 179
+    12c2:	58 e4       	ldi	r21, 0x48	; 72
     12c4:	0e 94 2b 0a 	call	0x1456	; 0x1456 <__divsf3>
     12c8:	22 e6       	ldi	r18, 0x62	; 98
     12ca:	3b ee       	ldi	r19, 0xEB	; 235
