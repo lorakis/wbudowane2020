@@ -1,0 +1,500 @@
+   1               		.file	"main.c"
+   2               	__SP_H__ = 0x3e
+   3               	__SP_L__ = 0x3d
+   4               	__SREG__ = 0x3f
+   5               	__tmp_reg__ = 0
+   6               	__zero_reg__ = 1
+   9               		.text
+  10               	.Ltext0:
+ 186               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 187               	.LC0:
+ 188 0000 2563 0D0A 		.string	"%c\r\n"
+ 188      00
+ 189               		.text
+ 193               	vSerial:
+ 194               		.stabd	46,0,0
+   1:main.c        **** /******************************************************************************
+   2:main.c        ****  * Header file inclusions.
+   3:main.c        ****  ******************************************************************************/
+   4:main.c        **** 
+   5:main.c        **** #include "FreeRTOS.h"
+   6:main.c        **** #include "task.h"
+   7:main.c        **** 
+   8:main.c        **** #include <avr/io.h>
+   9:main.c        **** 
+  10:main.c        **** 
+  11:main.c        **** #include <stdio.h>
+  12:main.c        **** #include "uart.h"
+  13:main.c        **** 
+  14:main.c        **** /******************************************************************************
+  15:main.c        ****  * Private macro definitions.
+  16:main.c        ****  ******************************************************************************/
+  17:main.c        **** 
+  18:main.c        **** #define mainLED_TASK_PRIORITY   1
+  19:main.c        **** 
+  20:main.c        **** #define mainSERIAL_TASK_PRIORITY 2
+  21:main.c        **** 
+  22:main.c        **** #define LED PB5
+  23:main.c        **** #define LED_DDR DDRB
+  24:main.c        **** #define LED_PORT PORTB
+  25:main.c        **** /******************************************************************************
+  26:main.c        ****  * Private function prototypes.
+  27:main.c        ****  ******************************************************************************/
+  28:main.c        **** 
+  29:main.c        **** static void vBlinkLed(void* pvParameters);
+  30:main.c        **** 
+  31:main.c        **** static void vSerial(void* pvParameters);
+  32:main.c        **** 
+  33:main.c        **** /******************************************************************************
+  34:main.c        ****  * Public function definitions.
+  35:main.c        ****  ******************************************************************************/
+  36:main.c        **** 
+  37:main.c        **** /**************************************************************************//**
+  38:main.c        ****  * \fn int main(void)
+  39:main.c        ****  *
+  40:main.c        ****  * \brief Main function.
+  41:main.c        ****  *
+  42:main.c        ****  * \return
+  43:main.c        ****  ******************************************************************************/
+  44:main.c        **** int main(void)
+  45:main.c        **** {
+  46:main.c        ****     /* Create task. w uart.h
+  47:main.c        ****     QueueHandle_t in;
+  48:main.c        ****     QueueHandle_t out; */
+  49:main.c        ****     xTaskHandle blink_handle;
+  50:main.c        ****     xTaskHandle serial_handle;
+  51:main.c        **** 
+  52:main.c        ****     in = xQueueCreate(10, sizeof(char));
+  53:main.c        ****     out = xQueueCreate(10, sizeof(char));
+  54:main.c        **** 
+  55:main.c        ****     xTaskCreate
+  56:main.c        ****         (
+  57:main.c        ****          vBlinkLed,
+  58:main.c        ****          "blink",
+  59:main.c        ****          configMINIMAL_STACK_SIZE,
+  60:main.c        ****          NULL,
+  61:main.c        ****          mainLED_TASK_PRIORITY,
+  62:main.c        ****          &blink_handle
+  63:main.c        ****         );
+  64:main.c        **** 
+  65:main.c        ****     xTaskCreate
+  66:main.c        ****         (
+  67:main.c        ****          vSerial,
+  68:main.c        ****          "serial",
+  69:main.c        ****          configMINIMAL_STACK_SIZE,
+  70:main.c        ****          NULL,
+  71:main.c        ****          mainSERIAL_TASK_PRIORITY,
+  72:main.c        ****          &serial_handle
+  73:main.c        ****         );
+  74:main.c        **** 
+  75:main.c        ****     // Start scheduler.
+  76:main.c        ****     vTaskStartScheduler();
+  77:main.c        **** 
+  78:main.c        ****     return 0;
+  79:main.c        **** }
+  80:main.c        **** 
+  81:main.c        **** /**************************************************************************//**
+  82:main.c        ****  * \fn static vApplicationIdleHook(void)
+  83:main.c        ****  *
+  84:main.c        ****  * \brief
+  85:main.c        ****  ******************************************************************************/
+  86:main.c        **** void vApplicationIdleHook(void)
+  87:main.c        **** {
+  88:main.c        **** 
+  89:main.c        **** }
+  90:main.c        **** 
+  91:main.c        **** /******************************************************************************
+  92:main.c        ****  * Private function definitions.
+  93:main.c        ****  ******************************************************************************/
+  94:main.c        **** 
+  95:main.c        **** /**************************************************************************//**
+  96:main.c        ****  * \fn static void vBlinkLed(void* pvParameters)
+  97:main.c        ****  *
+  98:main.c        ****  * \brief
+  99:main.c        ****  *
+ 100:main.c        ****  * \param[in]   pvParameters
+ 101:main.c        ****  ******************************************************************************/
+ 102:main.c        **** static void vBlinkLed(void* pvParameters)
+ 103:main.c        **** {
+ 104:main.c        ****     DDRB |= _BV(PB5);
+ 105:main.c        **** 
+ 106:main.c        ****     for ( ;; )
+ 107:main.c        ****     {
+ 108:main.c        ****         LED_PORT &= ~_BV(LED);
+ 109:main.c        ****         vTaskDelay(500 / portTICK_PERIOD_MS);
+ 110:main.c        ****         LED_PORT |= _BV(LED);
+ 111:main.c        ****         vTaskDelay(500 / portTICK_PERIOD_MS);
+ 112:main.c        ****     }
+ 113:main.c        **** }
+ 114:main.c        **** 
+ 115:main.c        **** 
+ 116:main.c        **** /**************************************************************************//**
+ 117:main.c        ****  * \fn static void vSerial(void* pvParameters)
+ 118:main.c        ****  *
+ 119:main.c        ****  * \brief
+ 120:main.c        ****  *
+ 121:main.c        ****  * \param[in]   pvParameters
+ 122:main.c        ****  ******************************************************************************/
+ 123:main.c        **** static void vSerial(void* pvParameters)
+ 124:main.c        **** {
+ 196               	.LM0:
+ 197               	.LFBB1:
+ 198               	/* prologue: function */
+ 199               	/* frame size = 0 */
+ 200               	/* stack size = 0 */
+ 201               	.L__stack_usage = 0
+ 125:main.c        ****     uart_init();
+ 203               	.LM1:
+ 204 0000 0E94 0000 		call uart_init
+ 126:main.c        ****     stdin = stdout = stderr = &uart_file;
+ 206               	.LM2:
+ 207 0004 80E0      		ldi r24,lo8(uart_file)
+ 208 0006 90E0      		ldi r25,hi8(uart_file)
+ 209 0008 9093 0000 		sts __iob+4+1,r25
+ 210 000c 8093 0000 		sts __iob+4,r24
+ 211 0010 9093 0000 		sts __iob+2+1,r25
+ 212 0014 8093 0000 		sts __iob+2,r24
+ 213 0018 9093 0000 		sts __iob+1,r25
+ 214 001c 8093 0000 		sts __iob,r24
+ 127:main.c        **** 
+ 128:main.c        ****     char input;
+ 129:main.c        **** 
+ 130:main.c        ****     for ( ;; )
+ 131:main.c        ****     {
+ 132:main.c        ****         input = getchar();
+ 133:main.c        ****         printf("%c\r\n", input);
+ 216               	.LM3:
+ 217 0020 C0E0      		ldi r28,lo8(.LC0)
+ 218 0022 D0E0      		ldi r29,hi8(.LC0)
+ 219               	.L2:
+ 132:main.c        ****         printf("%c\r\n", input);
+ 221               	.LM4:
+ 222 0024 8091 0000 		lds r24,__iob
+ 223 0028 9091 0000 		lds r25,__iob+1
+ 224 002c 0E94 0000 		call fgetc
+ 226               	.LM5:
+ 227 0030 282F      		mov r18,r24
+ 228 0032 082E      		mov __tmp_reg__,r24
+ 229 0034 000C      		lsl r0
+ 230 0036 330B      		sbc r19,r19
+ 231 0038 3F93      		push r19
+ 232 003a 8F93      		push r24
+ 233 003c DF93      		push r29
+ 234 003e CF93      		push r28
+ 235 0040 0E94 0000 		call printf
+ 236 0044 0F90      		pop __tmp_reg__
+ 237 0046 0F90      		pop __tmp_reg__
+ 238 0048 0F90      		pop __tmp_reg__
+ 239 004a 0F90      		pop __tmp_reg__
+ 240 004c 00C0      		rjmp .L2
+ 242               	.Lscope1:
+ 244               		.stabd	78,0,0
+ 248               	vBlinkLed:
+ 249               		.stabd	46,0,0
+ 103:main.c        ****     DDRB |= _BV(PB5);
+ 251               	.LM6:
+ 252               	.LFBB2:
+ 253               	/* prologue: function */
+ 254               	/* frame size = 0 */
+ 255               	/* stack size = 0 */
+ 256               	.L__stack_usage = 0
+ 104:main.c        **** 
+ 258               	.LM7:
+ 259 004e 259A      		sbi 0x4,5
+ 260               	.L5:
+ 108:main.c        ****         vTaskDelay(500 / portTICK_PERIOD_MS);
+ 262               	.LM8:
+ 263 0050 2D98      		cbi 0x5,5
+ 109:main.c        ****         LED_PORT |= _BV(LED);
+ 265               	.LM9:
+ 266 0052 84EF      		ldi r24,lo8(-12)
+ 267 0054 91E0      		ldi r25,lo8(1)
+ 268 0056 0E94 0000 		call vTaskDelay
+ 110:main.c        ****         vTaskDelay(500 / portTICK_PERIOD_MS);
+ 270               	.LM10:
+ 271 005a 2D9A      		sbi 0x5,5
+ 111:main.c        ****     }
+ 273               	.LM11:
+ 274 005c 84EF      		ldi r24,lo8(-12)
+ 275 005e 91E0      		ldi r25,lo8(1)
+ 276 0060 0E94 0000 		call vTaskDelay
+ 277 0064 00C0      		rjmp .L5
+ 279               	.Lscope2:
+ 281               		.stabd	78,0,0
+ 282               		.section	.rodata.str1.1
+ 283               	.LC1:
+ 284 0005 626C 696E 		.string	"blink"
+ 284      6B00 
+ 285               	.LC2:
+ 286 000b 7365 7269 		.string	"serial"
+ 286      616C 00
+ 287               		.section	.text.startup,"ax",@progbits
+ 289               	.global	main
+ 291               	main:
+ 292               		.stabd	46,0,0
+  45:main.c        ****     /* Create task. w uart.h
+ 294               	.LM12:
+ 295               	.LFBB3:
+ 296 0000 EF92      		push r14
+ 297 0002 FF92      		push r15
+ 298 0004 0F93      		push r16
+ 299 0006 CF93      		push r28
+ 300 0008 DF93      		push r29
+ 301 000a 00D0      		rcall .
+ 302 000c 00D0      		rcall .
+ 303 000e CDB7      		in r28,__SP_L__
+ 304 0010 DEB7      		in r29,__SP_H__
+ 305               	/* prologue: function */
+ 306               	/* frame size = 4 */
+ 307               	/* stack size = 9 */
+ 308               	.L__stack_usage = 9
+  52:main.c        ****     out = xQueueCreate(10, sizeof(char));
+ 310               	.LM13:
+ 311 0012 40E0      		ldi r20,0
+ 312 0014 61E0      		ldi r22,lo8(1)
+ 313 0016 8AE0      		ldi r24,lo8(10)
+ 314 0018 0E94 0000 		call xQueueGenericCreate
+ 315 001c 9093 0000 		sts in+1,r25
+ 316 0020 8093 0000 		sts in,r24
+  53:main.c        **** 
+ 318               	.LM14:
+ 319 0024 40E0      		ldi r20,0
+ 320 0026 61E0      		ldi r22,lo8(1)
+ 321 0028 8AE0      		ldi r24,lo8(10)
+ 322 002a 0E94 0000 		call xQueueGenericCreate
+ 323 002e 9093 0000 		sts out+1,r25
+ 324 0032 8093 0000 		sts out,r24
+  55:main.c        ****         (
+ 326               	.LM15:
+ 327 0036 CE01      		movw r24,r28
+ 328 0038 0396      		adiw r24,3
+ 329 003a 7C01      		movw r14,r24
+ 330 003c 01E0      		ldi r16,lo8(1)
+ 331 003e 20E0      		ldi r18,0
+ 332 0040 30E0      		ldi r19,0
+ 333 0042 45E5      		ldi r20,lo8(85)
+ 334 0044 50E0      		ldi r21,0
+ 335 0046 60E0      		ldi r22,lo8(.LC1)
+ 336 0048 70E0      		ldi r23,hi8(.LC1)
+ 337 004a 80E0      		ldi r24,lo8(gs(vBlinkLed))
+ 338 004c 90E0      		ldi r25,hi8(gs(vBlinkLed))
+ 339 004e 0E94 0000 		call xTaskCreate
+  65:main.c        ****         (
+ 341               	.LM16:
+ 342 0052 CE01      		movw r24,r28
+ 343 0054 0196      		adiw r24,1
+ 344 0056 7C01      		movw r14,r24
+ 345 0058 02E0      		ldi r16,lo8(2)
+ 346 005a 20E0      		ldi r18,0
+ 347 005c 30E0      		ldi r19,0
+ 348 005e 45E5      		ldi r20,lo8(85)
+ 349 0060 50E0      		ldi r21,0
+ 350 0062 60E0      		ldi r22,lo8(.LC2)
+ 351 0064 70E0      		ldi r23,hi8(.LC2)
+ 352 0066 80E0      		ldi r24,lo8(gs(vSerial))
+ 353 0068 90E0      		ldi r25,hi8(gs(vSerial))
+ 354 006a 0E94 0000 		call xTaskCreate
+  76:main.c        **** 
+ 356               	.LM17:
+ 357 006e 0E94 0000 		call vTaskStartScheduler
+  79:main.c        **** 
+ 359               	.LM18:
+ 360 0072 80E0      		ldi r24,0
+ 361 0074 90E0      		ldi r25,0
+ 362               	/* epilogue start */
+ 363 0076 0F90      		pop __tmp_reg__
+ 364 0078 0F90      		pop __tmp_reg__
+ 365 007a 0F90      		pop __tmp_reg__
+ 366 007c 0F90      		pop __tmp_reg__
+ 367 007e DF91      		pop r29
+ 368 0080 CF91      		pop r28
+ 369 0082 0F91      		pop r16
+ 370 0084 FF90      		pop r15
+ 371 0086 EF90      		pop r14
+ 372 0088 0895      		ret
+ 378               	.Lscope3:
+ 380               		.stabd	78,0,0
+ 381               		.text
+ 383               	.global	vApplicationIdleHook
+ 385               	vApplicationIdleHook:
+ 386               		.stabd	46,0,0
+  87:main.c        **** 
+ 388               	.LM19:
+ 389               	.LFBB4:
+ 390               	/* prologue: function */
+ 391               	/* frame size = 0 */
+ 392               	/* stack size = 0 */
+ 393               	.L__stack_usage = 0
+ 394 0066 0895      		ret
+ 396               	.Lscope4:
+ 398               		.stabd	78,0,0
+ 400               	.global	__vector_19
+ 402               	__vector_19:
+ 403               		.stabd	46,0,0
+ 134:main.c        ****     }
+ 135:main.c        **** }
+ 136:main.c        **** 
+ 137:main.c        **** ISR(USART_UDRE_vect)
+ 138:main.c        **** {
+ 405               	.LM20:
+ 406               	.LFBB5:
+ 408               	.LM21:
+ 409 0068 1F92      		push r1
+ 410 006a 0F92      		push r0
+ 411 006c 0FB6      		in r0,__SREG__
+ 412 006e 0F92      		push r0
+ 413 0070 1124      		clr __zero_reg__
+ 414 0072 2F93      		push r18
+ 415 0074 3F93      		push r19
+ 416 0076 4F93      		push r20
+ 417 0078 5F93      		push r21
+ 418 007a 6F93      		push r22
+ 419 007c 7F93      		push r23
+ 420 007e 8F93      		push r24
+ 421 0080 9F93      		push r25
+ 422 0082 AF93      		push r26
+ 423 0084 BF93      		push r27
+ 424 0086 EF93      		push r30
+ 425 0088 FF93      		push r31
+ 426               	/* prologue: Signal */
+ 427               	/* frame size = 0 */
+ 428               	/* stack size = 15 */
+ 429               	.L__stack_usage = 15
+ 139:main.c        ****   if(xQueueIsQueueEmptyFromISR(out) == pdFALSE)
+ 431               	.LM22:
+ 432 008a 8091 0000 		lds r24,out
+ 433 008e 9091 0000 		lds r25,out+1
+ 434 0092 0E94 0000 		call xQueueIsQueueEmptyFromISR
+ 435 0096 8111      		cpse r24,__zero_reg__
+ 436 0098 00C0      		rjmp .L8
+ 140:main.c        ****     xQueueReceiveFromISR(out, (void*)&UDR0, NULL);
+ 438               	.LM23:
+ 439 009a 40E0      		ldi r20,0
+ 440 009c 50E0      		ldi r21,0
+ 441 009e 66EC      		ldi r22,lo8(-58)
+ 442 00a0 70E0      		ldi r23,0
+ 443 00a2 8091 0000 		lds r24,out
+ 444 00a6 9091 0000 		lds r25,out+1
+ 445 00aa 0E94 0000 		call xQueueReceiveFromISR
+ 446               	.L8:
+ 447               	/* epilogue start */
+ 141:main.c        **** }
+ 449               	.LM24:
+ 450 00ae FF91      		pop r31
+ 451 00b0 EF91      		pop r30
+ 452 00b2 BF91      		pop r27
+ 453 00b4 AF91      		pop r26
+ 454 00b6 9F91      		pop r25
+ 455 00b8 8F91      		pop r24
+ 456 00ba 7F91      		pop r23
+ 457 00bc 6F91      		pop r22
+ 458 00be 5F91      		pop r21
+ 459 00c0 4F91      		pop r20
+ 460 00c2 3F91      		pop r19
+ 461 00c4 2F91      		pop r18
+ 462 00c6 0F90      		pop r0
+ 463 00c8 0FBE      		out __SREG__,r0
+ 464 00ca 0F90      		pop r0
+ 465 00cc 1F90      		pop r1
+ 466 00ce 1895      		reti
+ 468               	.Lscope5:
+ 470               		.stabd	78,0,0
+ 472               	.global	__vector_18
+ 474               	__vector_18:
+ 475               		.stabd	46,0,0
+ 142:main.c        **** 
+ 143:main.c        **** ISR(USART_RX_vect)
+ 144:main.c        **** {
+ 477               	.LM25:
+ 478               	.LFBB6:
+ 479 00d0 1F92      		push r1
+ 480 00d2 0F92      		push r0
+ 481 00d4 0FB6      		in r0,__SREG__
+ 482 00d6 0F92      		push r0
+ 483 00d8 1124      		clr __zero_reg__
+ 484 00da 2F93      		push r18
+ 485 00dc 3F93      		push r19
+ 486 00de 4F93      		push r20
+ 487 00e0 5F93      		push r21
+ 488 00e2 6F93      		push r22
+ 489 00e4 7F93      		push r23
+ 490 00e6 8F93      		push r24
+ 491 00e8 9F93      		push r25
+ 492 00ea AF93      		push r26
+ 493 00ec BF93      		push r27
+ 494 00ee EF93      		push r30
+ 495 00f0 FF93      		push r31
+ 496               	/* prologue: Signal */
+ 497               	/* frame size = 0 */
+ 498               	/* stack size = 15 */
+ 499               	.L__stack_usage = 15
+ 145:main.c        ****   xQueueSendFromISR(in, (void*)&UDR0, NULL);
+ 501               	.LM26:
+ 502 00f2 20E0      		ldi r18,0
+ 503 00f4 40E0      		ldi r20,0
+ 504 00f6 50E0      		ldi r21,0
+ 505 00f8 66EC      		ldi r22,lo8(-58)
+ 506 00fa 70E0      		ldi r23,0
+ 507 00fc 8091 0000 		lds r24,in
+ 508 0100 9091 0000 		lds r25,in+1
+ 509 0104 0E94 0000 		call xQueueGenericSendFromISR
+ 510               	/* epilogue start */
+ 146:main.c        **** }
+ 512               	.LM27:
+ 513 0108 FF91      		pop r31
+ 514 010a EF91      		pop r30
+ 515 010c BF91      		pop r27
+ 516 010e AF91      		pop r26
+ 517 0110 9F91      		pop r25
+ 518 0112 8F91      		pop r24
+ 519 0114 7F91      		pop r23
+ 520 0116 6F91      		pop r22
+ 521 0118 5F91      		pop r21
+ 522 011a 4F91      		pop r20
+ 523 011c 3F91      		pop r19
+ 524 011e 2F91      		pop r18
+ 525 0120 0F90      		pop r0
+ 526 0122 0FBE      		out __SREG__,r0
+ 527 0124 0F90      		pop r0
+ 528 0126 1F90      		pop r1
+ 529 0128 1895      		reti
+ 531               	.Lscope6:
+ 533               		.stabd	78,0,0
+ 534               		.comm	out,2,1
+ 535               		.comm	in,2,1
+ 536               		.comm	uart_file,14,1
+ 541               	.Letext0:
+ 542               		.ident	"GCC: (GNU) 5.4.0"
+ 543               	.global __do_copy_data
+ 544               	.global __do_clear_bss
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 main.c
+     /tmp/cclerTNW.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/cclerTNW.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/cclerTNW.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/cclerTNW.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/cclerTNW.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/cclerTNW.s:193    .text:0000000000000000 vSerial
+                            *COM*:000000000000000e uart_file
+     /tmp/cclerTNW.s:248    .text:000000000000004e vBlinkLed
+     /tmp/cclerTNW.s:291    .text.startup:0000000000000000 main
+                            *COM*:0000000000000002 in
+                            *COM*:0000000000000002 out
+     /tmp/cclerTNW.s:385    .text:0000000000000066 vApplicationIdleHook
+     /tmp/cclerTNW.s:402    .text:0000000000000068 __vector_19
+     /tmp/cclerTNW.s:474    .text:00000000000000d0 __vector_18
+
+UNDEFINED SYMBOLS
+uart_init
+__iob
+fgetc
+printf
+vTaskDelay
+xQueueGenericCreate
+xTaskCreate
+vTaskStartScheduler
+xQueueIsQueueEmptyFromISR
+xQueueReceiveFromISR
+xQueueGenericSendFromISR
+__do_copy_data
+__do_clear_bss
