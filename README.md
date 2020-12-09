@@ -9,4 +9,5 @@
 * lista 8 4/4
 * lista 9 ?/4
 
+Huj mi w dupe
 28/32  87,5%
