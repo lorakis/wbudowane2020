@@ -35,8 +35,8 @@ int main()
   stdout = stderr = &hd44780_file;
   // program testowy
   // wgrywamy nowe znaki
-  uint8_t adres = 0b00000000;
-  uint8_t data  = 0b00100000;
+  uint8_t adres = 0x00;
+  uint8_t data  = 0x20;
   for(int i = 0; i < 6; i++)
   {
     dodaj_znaki(data, adres);
