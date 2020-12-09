@@ -6,13 +6,8 @@
    6               	__zero_reg__ = 1
    9               		.text
   10               	.Ltext0:
- 186               		.section	.rodata.str1.1,"aMS",@progbits,1
- 187               	.LC0:
- 188 0000 2563 0D0A 		.string	"%c\r\n"
- 188      00
- 189               		.text
- 193               	vSerial:
- 194               		.stabd	46,0,0
+ 189               	vSerial:
+ 190               		.stabd	46,0,0
    1:main.c        **** /******************************************************************************
    2:main.c        ****  * Header file inclusions.
    3:main.c        ****  ******************************************************************************/
@@ -137,358 +132,368 @@
  122:main.c        ****  ******************************************************************************/
  123:main.c        **** static void vSerial(void* pvParameters)
  124:main.c        **** {
- 196               	.LM0:
- 197               	.LFBB1:
- 198               	/* prologue: function */
- 199               	/* frame size = 0 */
- 200               	/* stack size = 0 */
- 201               	.L__stack_usage = 0
+ 192               	.LM0:
+ 193               	.LFBB1:
+ 194               	/* prologue: function */
+ 195               	/* frame size = 0 */
+ 196               	/* stack size = 0 */
+ 197               	.L__stack_usage = 0
  125:main.c        ****     uart_init();
- 203               	.LM1:
- 204 0000 0E94 0000 		call uart_init
+ 199               	.LM1:
+ 200 0000 0E94 0000 		call uart_init
  126:main.c        ****     stdin = stdout = stderr = &uart_file;
- 206               	.LM2:
- 207 0004 80E0      		ldi r24,lo8(uart_file)
- 208 0006 90E0      		ldi r25,hi8(uart_file)
- 209 0008 9093 0000 		sts __iob+4+1,r25
- 210 000c 8093 0000 		sts __iob+4,r24
- 211 0010 9093 0000 		sts __iob+2+1,r25
- 212 0014 8093 0000 		sts __iob+2,r24
- 213 0018 9093 0000 		sts __iob+1,r25
- 214 001c 8093 0000 		sts __iob,r24
+ 202               	.LM2:
+ 203 0004 80E0      		ldi r24,lo8(uart_file)
+ 204 0006 90E0      		ldi r25,hi8(uart_file)
+ 205 0008 9093 0000 		sts __iob+4+1,r25
+ 206 000c 8093 0000 		sts __iob+4,r24
+ 207 0010 9093 0000 		sts __iob+2+1,r25
+ 208 0014 8093 0000 		sts __iob+2,r24
+ 209 0018 9093 0000 		sts __iob+1,r25
+ 210 001c 8093 0000 		sts __iob,r24
+ 211               	.L3:
  127:main.c        **** 
  128:main.c        ****     char input;
  129:main.c        **** 
  130:main.c        ****     for ( ;; )
  131:main.c        ****     {
- 132:main.c        ****         input = getchar();
- 133:main.c        ****         printf("%c\r\n", input);
- 216               	.LM3:
- 217 0020 C0E0      		ldi r28,lo8(.LC0)
- 218 0022 D0E0      		ldi r29,hi8(.LC0)
- 219               	.L2:
- 132:main.c        ****         printf("%c\r\n", input);
- 221               	.LM4:
- 222 0024 8091 0000 		lds r24,__iob
- 223 0028 9091 0000 		lds r25,__iob+1
- 224 002c 0E94 0000 		call fgetc
- 226               	.LM5:
- 227 0030 282F      		mov r18,r24
- 228 0032 082E      		mov __tmp_reg__,r24
- 229 0034 000C      		lsl r0
- 230 0036 330B      		sbc r19,r19
- 231 0038 3F93      		push r19
- 232 003a 8F93      		push r24
- 233 003c DF93      		push r29
- 234 003e CF93      		push r28
- 235 0040 0E94 0000 		call printf
- 236 0044 0F90      		pop __tmp_reg__
- 237 0046 0F90      		pop __tmp_reg__
- 238 0048 0F90      		pop __tmp_reg__
- 239 004a 0F90      		pop __tmp_reg__
- 240 004c 00C0      		rjmp .L2
- 242               	.Lscope1:
- 244               		.stabd	78,0,0
- 248               	vBlinkLed:
- 249               		.stabd	46,0,0
+ 132:main.c        ****       sei();
+ 213               	.LM3:
+ 214               	/* #APP */
+ 215               	 ;  132 "main.c" 1
+ 216 0020 7894      		sei
+ 217               	 ;  0 "" 2
+ 218               	/* #NOAPP */
+ 219 0022 C0E3      		ldi r28,lo8(48)
+ 220 0024 D0E0      		ldi r29,0
+ 221               	.L2:
+ 222               	.LBB2:
+ 133:main.c        ****       input = getchar;
+ 134:main.c        ****       for(int i =0; i<10; i++)
+ 135:main.c        ****         //printf("%d\r\n", i);
+ 136:main.c        ****         putchar('0'+i);
+ 224               	.LM4:
+ 225 0026 6091 0000 		lds r22,__iob+2
+ 226 002a 7091 0000 		lds r23,__iob+2+1
+ 227 002e CE01      		movw r24,r28
+ 228 0030 0E94 0000 		call fputc
+ 229 0034 2196      		adiw r28,1
+ 134:main.c        ****         //printf("%d\r\n", i);
+ 231               	.LM5:
+ 232 0036 CA33      		cpi r28,58
+ 233 0038 D105      		cpc r29,__zero_reg__
+ 234 003a 01F4      		brne .L2
+ 235               	.LBE2:
+ 137:main.c        ****       cli();
+ 237               	.LM6:
+ 238               	/* #APP */
+ 239               	 ;  137 "main.c" 1
+ 240 003c F894      		cli
+ 241               	 ;  0 "" 2
+ 138:main.c        ****     }
+ 243               	.LM7:
+ 244               	/* #NOAPP */
+ 245 003e 00C0      		rjmp .L3
+ 247               	.Lscope1:
+ 249               		.stabd	78,0,0
+ 253               	vBlinkLed:
+ 254               		.stabd	46,0,0
  103:main.c        ****     DDRB |= _BV(PB5);
- 251               	.LM6:
- 252               	.LFBB2:
- 253               	/* prologue: function */
- 254               	/* frame size = 0 */
- 255               	/* stack size = 0 */
- 256               	.L__stack_usage = 0
+ 256               	.LM8:
+ 257               	.LFBB2:
+ 258               	/* prologue: function */
+ 259               	/* frame size = 0 */
+ 260               	/* stack size = 0 */
+ 261               	.L__stack_usage = 0
  104:main.c        **** 
- 258               	.LM7:
- 259 004e 259A      		sbi 0x4,5
- 260               	.L5:
+ 263               	.LM9:
+ 264 0040 259A      		sbi 0x4,5
+ 265               	.L7:
  108:main.c        ****         vTaskDelay(500 / portTICK_PERIOD_MS);
- 262               	.LM8:
- 263 0050 2D98      		cbi 0x5,5
+ 267               	.LM10:
+ 268 0042 2D98      		cbi 0x5,5
  109:main.c        ****         LED_PORT |= _BV(LED);
- 265               	.LM9:
- 266 0052 84EF      		ldi r24,lo8(-12)
- 267 0054 91E0      		ldi r25,lo8(1)
- 268 0056 0E94 0000 		call vTaskDelay
+ 270               	.LM11:
+ 271 0044 84EF      		ldi r24,lo8(-12)
+ 272 0046 91E0      		ldi r25,lo8(1)
+ 273 0048 0E94 0000 		call vTaskDelay
  110:main.c        ****         vTaskDelay(500 / portTICK_PERIOD_MS);
- 270               	.LM10:
- 271 005a 2D9A      		sbi 0x5,5
+ 275               	.LM12:
+ 276 004c 2D9A      		sbi 0x5,5
  111:main.c        ****     }
- 273               	.LM11:
- 274 005c 84EF      		ldi r24,lo8(-12)
- 275 005e 91E0      		ldi r25,lo8(1)
- 276 0060 0E94 0000 		call vTaskDelay
- 277 0064 00C0      		rjmp .L5
- 279               	.Lscope2:
- 281               		.stabd	78,0,0
- 282               		.section	.rodata.str1.1
- 283               	.LC1:
- 284 0005 626C 696E 		.string	"blink"
- 284      6B00 
- 285               	.LC2:
- 286 000b 7365 7269 		.string	"serial"
- 286      616C 00
- 287               		.section	.text.startup,"ax",@progbits
- 289               	.global	main
- 291               	main:
- 292               		.stabd	46,0,0
+ 278               	.LM13:
+ 279 004e 84EF      		ldi r24,lo8(-12)
+ 280 0050 91E0      		ldi r25,lo8(1)
+ 281 0052 0E94 0000 		call vTaskDelay
+ 282 0056 00C0      		rjmp .L7
+ 284               	.Lscope2:
+ 286               		.stabd	78,0,0
+ 287               		.section	.rodata.str1.1,"aMS",@progbits,1
+ 288               	.LC0:
+ 289 0000 626C 696E 		.string	"blink"
+ 289      6B00 
+ 290               	.LC1:
+ 291 0006 7365 7269 		.string	"serial"
+ 291      616C 00
+ 292               		.section	.text.startup,"ax",@progbits
+ 294               	.global	main
+ 296               	main:
+ 297               		.stabd	46,0,0
   45:main.c        ****     /* Create task. w uart.h
- 294               	.LM12:
- 295               	.LFBB3:
- 296 0000 EF92      		push r14
- 297 0002 FF92      		push r15
- 298 0004 0F93      		push r16
- 299 0006 CF93      		push r28
- 300 0008 DF93      		push r29
- 301 000a 00D0      		rcall .
- 302 000c 00D0      		rcall .
- 303 000e CDB7      		in r28,__SP_L__
- 304 0010 DEB7      		in r29,__SP_H__
- 305               	/* prologue: function */
- 306               	/* frame size = 4 */
- 307               	/* stack size = 9 */
- 308               	.L__stack_usage = 9
+ 299               	.LM14:
+ 300               	.LFBB3:
+ 301 0000 EF92      		push r14
+ 302 0002 FF92      		push r15
+ 303 0004 0F93      		push r16
+ 304 0006 CF93      		push r28
+ 305 0008 DF93      		push r29
+ 306 000a 00D0      		rcall .
+ 307 000c 00D0      		rcall .
+ 308 000e CDB7      		in r28,__SP_L__
+ 309 0010 DEB7      		in r29,__SP_H__
+ 310               	/* prologue: function */
+ 311               	/* frame size = 4 */
+ 312               	/* stack size = 9 */
+ 313               	.L__stack_usage = 9
   52:main.c        ****     out = xQueueCreate(10, sizeof(char));
- 310               	.LM13:
- 311 0012 40E0      		ldi r20,0
- 312 0014 61E0      		ldi r22,lo8(1)
- 313 0016 8AE0      		ldi r24,lo8(10)
- 314 0018 0E94 0000 		call xQueueGenericCreate
- 315 001c 9093 0000 		sts in+1,r25
- 316 0020 8093 0000 		sts in,r24
+ 315               	.LM15:
+ 316 0012 40E0      		ldi r20,0
+ 317 0014 61E0      		ldi r22,lo8(1)
+ 318 0016 8AE0      		ldi r24,lo8(10)
+ 319 0018 0E94 0000 		call xQueueGenericCreate
+ 320 001c 9093 0000 		sts in+1,r25
+ 321 0020 8093 0000 		sts in,r24
   53:main.c        **** 
- 318               	.LM14:
- 319 0024 40E0      		ldi r20,0
- 320 0026 61E0      		ldi r22,lo8(1)
- 321 0028 8AE0      		ldi r24,lo8(10)
- 322 002a 0E94 0000 		call xQueueGenericCreate
- 323 002e 9093 0000 		sts out+1,r25
- 324 0032 8093 0000 		sts out,r24
+ 323               	.LM16:
+ 324 0024 40E0      		ldi r20,0
+ 325 0026 61E0      		ldi r22,lo8(1)
+ 326 0028 8AE0      		ldi r24,lo8(10)
+ 327 002a 0E94 0000 		call xQueueGenericCreate
+ 328 002e 9093 0000 		sts out+1,r25
+ 329 0032 8093 0000 		sts out,r24
   55:main.c        ****         (
- 326               	.LM15:
- 327 0036 CE01      		movw r24,r28
- 328 0038 0396      		adiw r24,3
- 329 003a 7C01      		movw r14,r24
- 330 003c 01E0      		ldi r16,lo8(1)
- 331 003e 20E0      		ldi r18,0
- 332 0040 30E0      		ldi r19,0
- 333 0042 45E5      		ldi r20,lo8(85)
- 334 0044 50E0      		ldi r21,0
- 335 0046 60E0      		ldi r22,lo8(.LC1)
- 336 0048 70E0      		ldi r23,hi8(.LC1)
- 337 004a 80E0      		ldi r24,lo8(gs(vBlinkLed))
- 338 004c 90E0      		ldi r25,hi8(gs(vBlinkLed))
- 339 004e 0E94 0000 		call xTaskCreate
+ 331               	.LM17:
+ 332 0036 CE01      		movw r24,r28
+ 333 0038 0396      		adiw r24,3
+ 334 003a 7C01      		movw r14,r24
+ 335 003c 01E0      		ldi r16,lo8(1)
+ 336 003e 20E0      		ldi r18,0
+ 337 0040 30E0      		ldi r19,0
+ 338 0042 45E5      		ldi r20,lo8(85)
+ 339 0044 50E0      		ldi r21,0
+ 340 0046 60E0      		ldi r22,lo8(.LC0)
+ 341 0048 70E0      		ldi r23,hi8(.LC0)
+ 342 004a 80E0      		ldi r24,lo8(gs(vBlinkLed))
+ 343 004c 90E0      		ldi r25,hi8(gs(vBlinkLed))
+ 344 004e 0E94 0000 		call xTaskCreate
   65:main.c        ****         (
- 341               	.LM16:
- 342 0052 CE01      		movw r24,r28
- 343 0054 0196      		adiw r24,1
- 344 0056 7C01      		movw r14,r24
- 345 0058 02E0      		ldi r16,lo8(2)
- 346 005a 20E0      		ldi r18,0
- 347 005c 30E0      		ldi r19,0
- 348 005e 45E5      		ldi r20,lo8(85)
- 349 0060 50E0      		ldi r21,0
- 350 0062 60E0      		ldi r22,lo8(.LC2)
- 351 0064 70E0      		ldi r23,hi8(.LC2)
- 352 0066 80E0      		ldi r24,lo8(gs(vSerial))
- 353 0068 90E0      		ldi r25,hi8(gs(vSerial))
- 354 006a 0E94 0000 		call xTaskCreate
+ 346               	.LM18:
+ 347 0052 CE01      		movw r24,r28
+ 348 0054 0196      		adiw r24,1
+ 349 0056 7C01      		movw r14,r24
+ 350 0058 02E0      		ldi r16,lo8(2)
+ 351 005a 20E0      		ldi r18,0
+ 352 005c 30E0      		ldi r19,0
+ 353 005e 45E5      		ldi r20,lo8(85)
+ 354 0060 50E0      		ldi r21,0
+ 355 0062 60E0      		ldi r22,lo8(.LC1)
+ 356 0064 70E0      		ldi r23,hi8(.LC1)
+ 357 0066 80E0      		ldi r24,lo8(gs(vSerial))
+ 358 0068 90E0      		ldi r25,hi8(gs(vSerial))
+ 359 006a 0E94 0000 		call xTaskCreate
   76:main.c        **** 
- 356               	.LM17:
- 357 006e 0E94 0000 		call vTaskStartScheduler
+ 361               	.LM19:
+ 362 006e 0E94 0000 		call vTaskStartScheduler
   79:main.c        **** 
- 359               	.LM18:
- 360 0072 80E0      		ldi r24,0
- 361 0074 90E0      		ldi r25,0
- 362               	/* epilogue start */
- 363 0076 0F90      		pop __tmp_reg__
- 364 0078 0F90      		pop __tmp_reg__
- 365 007a 0F90      		pop __tmp_reg__
- 366 007c 0F90      		pop __tmp_reg__
- 367 007e DF91      		pop r29
- 368 0080 CF91      		pop r28
- 369 0082 0F91      		pop r16
- 370 0084 FF90      		pop r15
- 371 0086 EF90      		pop r14
- 372 0088 0895      		ret
- 378               	.Lscope3:
- 380               		.stabd	78,0,0
- 381               		.text
- 383               	.global	vApplicationIdleHook
- 385               	vApplicationIdleHook:
- 386               		.stabd	46,0,0
+ 364               	.LM20:
+ 365 0072 80E0      		ldi r24,0
+ 366 0074 90E0      		ldi r25,0
+ 367               	/* epilogue start */
+ 368 0076 0F90      		pop __tmp_reg__
+ 369 0078 0F90      		pop __tmp_reg__
+ 370 007a 0F90      		pop __tmp_reg__
+ 371 007c 0F90      		pop __tmp_reg__
+ 372 007e DF91      		pop r29
+ 373 0080 CF91      		pop r28
+ 374 0082 0F91      		pop r16
+ 375 0084 FF90      		pop r15
+ 376 0086 EF90      		pop r14
+ 377 0088 0895      		ret
+ 383               	.Lscope3:
+ 385               		.stabd	78,0,0
+ 386               		.text
+ 388               	.global	vApplicationIdleHook
+ 390               	vApplicationIdleHook:
+ 391               		.stabd	46,0,0
   87:main.c        **** 
- 388               	.LM19:
- 389               	.LFBB4:
- 390               	/* prologue: function */
- 391               	/* frame size = 0 */
- 392               	/* stack size = 0 */
- 393               	.L__stack_usage = 0
- 394 0066 0895      		ret
- 396               	.Lscope4:
- 398               		.stabd	78,0,0
- 400               	.global	__vector_19
- 402               	__vector_19:
- 403               		.stabd	46,0,0
- 134:main.c        ****     }
- 135:main.c        **** }
- 136:main.c        **** 
- 137:main.c        **** ISR(USART_UDRE_vect)
- 138:main.c        **** {
- 405               	.LM20:
- 406               	.LFBB5:
- 408               	.LM21:
- 409 0068 1F92      		push r1
- 410 006a 0F92      		push r0
- 411 006c 0FB6      		in r0,__SREG__
- 412 006e 0F92      		push r0
- 413 0070 1124      		clr __zero_reg__
- 414 0072 2F93      		push r18
- 415 0074 3F93      		push r19
- 416 0076 4F93      		push r20
- 417 0078 5F93      		push r21
- 418 007a 6F93      		push r22
- 419 007c 7F93      		push r23
- 420 007e 8F93      		push r24
- 421 0080 9F93      		push r25
- 422 0082 AF93      		push r26
- 423 0084 BF93      		push r27
- 424 0086 EF93      		push r30
- 425 0088 FF93      		push r31
- 426               	/* prologue: Signal */
- 427               	/* frame size = 0 */
- 428               	/* stack size = 15 */
- 429               	.L__stack_usage = 15
- 139:main.c        ****   if(xQueueIsQueueEmptyFromISR(out) == pdFALSE)
- 431               	.LM22:
- 432 008a 8091 0000 		lds r24,out
- 433 008e 9091 0000 		lds r25,out+1
- 434 0092 0E94 0000 		call xQueueIsQueueEmptyFromISR
- 435 0096 8111      		cpse r24,__zero_reg__
- 436 0098 00C0      		rjmp .L8
- 140:main.c        ****     xQueueReceiveFromISR(out, (void*)&UDR0, NULL);
- 438               	.LM23:
- 439 009a 40E0      		ldi r20,0
- 440 009c 50E0      		ldi r21,0
- 441 009e 66EC      		ldi r22,lo8(-58)
- 442 00a0 70E0      		ldi r23,0
- 443 00a2 8091 0000 		lds r24,out
- 444 00a6 9091 0000 		lds r25,out+1
- 445 00aa 0E94 0000 		call xQueueReceiveFromISR
- 446               	.L8:
- 447               	/* epilogue start */
- 141:main.c        **** }
- 449               	.LM24:
- 450 00ae FF91      		pop r31
- 451 00b0 EF91      		pop r30
- 452 00b2 BF91      		pop r27
- 453 00b4 AF91      		pop r26
- 454 00b6 9F91      		pop r25
- 455 00b8 8F91      		pop r24
- 456 00ba 7F91      		pop r23
- 457 00bc 6F91      		pop r22
- 458 00be 5F91      		pop r21
- 459 00c0 4F91      		pop r20
- 460 00c2 3F91      		pop r19
- 461 00c4 2F91      		pop r18
- 462 00c6 0F90      		pop r0
- 463 00c8 0FBE      		out __SREG__,r0
- 464 00ca 0F90      		pop r0
- 465 00cc 1F90      		pop r1
- 466 00ce 1895      		reti
- 468               	.Lscope5:
- 470               		.stabd	78,0,0
- 472               	.global	__vector_18
- 474               	__vector_18:
- 475               		.stabd	46,0,0
- 142:main.c        **** 
- 143:main.c        **** ISR(USART_RX_vect)
- 144:main.c        **** {
- 477               	.LM25:
- 478               	.LFBB6:
- 479 00d0 1F92      		push r1
- 480 00d2 0F92      		push r0
- 481 00d4 0FB6      		in r0,__SREG__
- 482 00d6 0F92      		push r0
- 483 00d8 1124      		clr __zero_reg__
- 484 00da 2F93      		push r18
- 485 00dc 3F93      		push r19
- 486 00de 4F93      		push r20
- 487 00e0 5F93      		push r21
- 488 00e2 6F93      		push r22
- 489 00e4 7F93      		push r23
- 490 00e6 8F93      		push r24
- 491 00e8 9F93      		push r25
- 492 00ea AF93      		push r26
- 493 00ec BF93      		push r27
- 494 00ee EF93      		push r30
- 495 00f0 FF93      		push r31
- 496               	/* prologue: Signal */
- 497               	/* frame size = 0 */
- 498               	/* stack size = 15 */
- 499               	.L__stack_usage = 15
- 145:main.c        ****   xQueueSendFromISR(in, (void*)&UDR0, NULL);
- 501               	.LM26:
- 502 00f2 20E0      		ldi r18,0
- 503 00f4 40E0      		ldi r20,0
- 504 00f6 50E0      		ldi r21,0
- 505 00f8 66EC      		ldi r22,lo8(-58)
- 506 00fa 70E0      		ldi r23,0
- 507 00fc 8091 0000 		lds r24,in
- 508 0100 9091 0000 		lds r25,in+1
- 509 0104 0E94 0000 		call xQueueGenericSendFromISR
- 510               	/* epilogue start */
- 146:main.c        **** }
- 512               	.LM27:
- 513 0108 FF91      		pop r31
- 514 010a EF91      		pop r30
- 515 010c BF91      		pop r27
- 516 010e AF91      		pop r26
- 517 0110 9F91      		pop r25
- 518 0112 8F91      		pop r24
- 519 0114 7F91      		pop r23
- 520 0116 6F91      		pop r22
- 521 0118 5F91      		pop r21
- 522 011a 4F91      		pop r20
- 523 011c 3F91      		pop r19
- 524 011e 2F91      		pop r18
- 525 0120 0F90      		pop r0
- 526 0122 0FBE      		out __SREG__,r0
- 527 0124 0F90      		pop r0
- 528 0126 1F90      		pop r1
- 529 0128 1895      		reti
- 531               	.Lscope6:
- 533               		.stabd	78,0,0
- 534               		.comm	out,2,1
- 535               		.comm	in,2,1
- 536               		.comm	uart_file,14,1
- 541               	.Letext0:
- 542               		.ident	"GCC: (GNU) 5.4.0"
- 543               	.global __do_copy_data
- 544               	.global __do_clear_bss
+ 393               	.LM21:
+ 394               	.LFBB4:
+ 395               	/* prologue: function */
+ 396               	/* frame size = 0 */
+ 397               	/* stack size = 0 */
+ 398               	.L__stack_usage = 0
+ 399 0058 0895      		ret
+ 401               	.Lscope4:
+ 403               		.stabd	78,0,0
+ 405               	.global	__vector_19
+ 407               	__vector_19:
+ 408               		.stabd	46,0,0
+ 139:main.c        **** }
+ 140:main.c        **** 
+ 141:main.c        **** ISR(USART_UDRE_vect)
+ 142:main.c        **** {
+ 410               	.LM22:
+ 411               	.LFBB5:
+ 413               	.LM23:
+ 414 005a 1F92      		push r1
+ 415 005c 0F92      		push r0
+ 416 005e 0FB6      		in r0,__SREG__
+ 417 0060 0F92      		push r0
+ 418 0062 1124      		clr __zero_reg__
+ 419 0064 2F93      		push r18
+ 420 0066 3F93      		push r19
+ 421 0068 4F93      		push r20
+ 422 006a 5F93      		push r21
+ 423 006c 6F93      		push r22
+ 424 006e 7F93      		push r23
+ 425 0070 8F93      		push r24
+ 426 0072 9F93      		push r25
+ 427 0074 AF93      		push r26
+ 428 0076 BF93      		push r27
+ 429 0078 EF93      		push r30
+ 430 007a FF93      		push r31
+ 431               	/* prologue: Signal */
+ 432               	/* frame size = 0 */
+ 433               	/* stack size = 15 */
+ 434               	.L__stack_usage = 15
+ 143:main.c        ****   if(xQueueIsQueueEmptyFromISR(out) == pdFALSE)
+ 436               	.LM24:
+ 437 007c 8091 0000 		lds r24,out
+ 438 0080 9091 0000 		lds r25,out+1
+ 439 0084 0E94 0000 		call xQueueIsQueueEmptyFromISR
+ 440 0088 8111      		cpse r24,__zero_reg__
+ 441 008a 00C0      		rjmp .L10
+ 144:main.c        ****     xQueueReceiveFromISR(out, (void*)&UDR0, NULL);
+ 443               	.LM25:
+ 444 008c 40E0      		ldi r20,0
+ 445 008e 50E0      		ldi r21,0
+ 446 0090 66EC      		ldi r22,lo8(-58)
+ 447 0092 70E0      		ldi r23,0
+ 448 0094 8091 0000 		lds r24,out
+ 449 0098 9091 0000 		lds r25,out+1
+ 450 009c 0E94 0000 		call xQueueReceiveFromISR
+ 451               	.L10:
+ 452               	/* epilogue start */
+ 145:main.c        **** }
+ 454               	.LM26:
+ 455 00a0 FF91      		pop r31
+ 456 00a2 EF91      		pop r30
+ 457 00a4 BF91      		pop r27
+ 458 00a6 AF91      		pop r26
+ 459 00a8 9F91      		pop r25
+ 460 00aa 8F91      		pop r24
+ 461 00ac 7F91      		pop r23
+ 462 00ae 6F91      		pop r22
+ 463 00b0 5F91      		pop r21
+ 464 00b2 4F91      		pop r20
+ 465 00b4 3F91      		pop r19
+ 466 00b6 2F91      		pop r18
+ 467 00b8 0F90      		pop r0
+ 468 00ba 0FBE      		out __SREG__,r0
+ 469 00bc 0F90      		pop r0
+ 470 00be 1F90      		pop r1
+ 471 00c0 1895      		reti
+ 473               	.Lscope5:
+ 475               		.stabd	78,0,0
+ 477               	.global	__vector_18
+ 479               	__vector_18:
+ 480               		.stabd	46,0,0
+ 146:main.c        **** 
+ 147:main.c        **** ISR(USART_RX_vect)
+ 148:main.c        **** {
+ 482               	.LM27:
+ 483               	.LFBB6:
+ 484 00c2 1F92      		push r1
+ 485 00c4 0F92      		push r0
+ 486 00c6 0FB6      		in r0,__SREG__
+ 487 00c8 0F92      		push r0
+ 488 00ca 1124      		clr __zero_reg__
+ 489 00cc 2F93      		push r18
+ 490 00ce 3F93      		push r19
+ 491 00d0 4F93      		push r20
+ 492 00d2 5F93      		push r21
+ 493 00d4 6F93      		push r22
+ 494 00d6 7F93      		push r23
+ 495 00d8 8F93      		push r24
+ 496 00da 9F93      		push r25
+ 497 00dc AF93      		push r26
+ 498 00de BF93      		push r27
+ 499 00e0 EF93      		push r30
+ 500 00e2 FF93      		push r31
+ 501               	/* prologue: Signal */
+ 502               	/* frame size = 0 */
+ 503               	/* stack size = 15 */
+ 504               	.L__stack_usage = 15
+ 149:main.c        ****   xQueueSendFromISR(in, (void*)&UDR0, NULL);
+ 506               	.LM28:
+ 507 00e4 20E0      		ldi r18,0
+ 508 00e6 40E0      		ldi r20,0
+ 509 00e8 50E0      		ldi r21,0
+ 510 00ea 66EC      		ldi r22,lo8(-58)
+ 511 00ec 70E0      		ldi r23,0
+ 512 00ee 8091 0000 		lds r24,in
+ 513 00f2 9091 0000 		lds r25,in+1
+ 514 00f6 0E94 0000 		call xQueueGenericSendFromISR
+ 515               	/* epilogue start */
+ 150:main.c        **** }
+ 517               	.LM29:
+ 518 00fa FF91      		pop r31
+ 519 00fc EF91      		pop r30
+ 520 00fe BF91      		pop r27
+ 521 0100 AF91      		pop r26
+ 522 0102 9F91      		pop r25
+ 523 0104 8F91      		pop r24
+ 524 0106 7F91      		pop r23
+ 525 0108 6F91      		pop r22
+ 526 010a 5F91      		pop r21
+ 527 010c 4F91      		pop r20
+ 528 010e 3F91      		pop r19
+ 529 0110 2F91      		pop r18
+ 530 0112 0F90      		pop r0
+ 531 0114 0FBE      		out __SREG__,r0
+ 532 0116 0F90      		pop r0
+ 533 0118 1F90      		pop r1
+ 534 011a 1895      		reti
+ 536               	.Lscope6:
+ 538               		.stabd	78,0,0
+ 539               		.comm	out,2,1
+ 540               		.comm	in,2,1
+ 541               		.comm	uart_file,14,1
+ 546               	.Letext0:
+ 547               		.ident	"GCC: (GNU) 5.4.0"
+ 548               	.global __do_copy_data
+ 549               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 main.c
-     /tmp/cclerTNW.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/cclerTNW.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/cclerTNW.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/cclerTNW.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/cclerTNW.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/cclerTNW.s:193    .text:0000000000000000 vSerial
+     /tmp/ccBJdCCx.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccBJdCCx.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccBJdCCx.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccBJdCCx.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccBJdCCx.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccBJdCCx.s:189    .text:0000000000000000 vSerial
                             *COM*:000000000000000e uart_file
-     /tmp/cclerTNW.s:248    .text:000000000000004e vBlinkLed
-     /tmp/cclerTNW.s:291    .text.startup:0000000000000000 main
+     /tmp/ccBJdCCx.s:253    .text:0000000000000040 vBlinkLed
+     /tmp/ccBJdCCx.s:296    .text.startup:0000000000000000 main
                             *COM*:0000000000000002 in
                             *COM*:0000000000000002 out
-     /tmp/cclerTNW.s:385    .text:0000000000000066 vApplicationIdleHook
-     /tmp/cclerTNW.s:402    .text:0000000000000068 __vector_19
-     /tmp/cclerTNW.s:474    .text:00000000000000d0 __vector_18
+     /tmp/ccBJdCCx.s:390    .text:0000000000000058 vApplicationIdleHook
+     /tmp/ccBJdCCx.s:407    .text:000000000000005a __vector_19
+     /tmp/ccBJdCCx.s:479    .text:00000000000000c2 __vector_18
 
 UNDEFINED SYMBOLS
 uart_init
 __iob
-fgetc
-printf
+fputc
 vTaskDelay
 xQueueGenericCreate
 xTaskCreate

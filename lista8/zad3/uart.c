@@ -31,18 +31,22 @@ void uart_init() {
 
 int uart_transmit(char c, FILE *stream)
 {
+  /*
   if(uxQueueSpacesAvailable(out) == 0)
     while (!(UCSR0A & _BV(UDRE0))) taskYIELD();
-
-  xQueueSend(out, (void*)&c, (TickType_t)0);
-
+  */
+  xQueueSend(out, (void*)&c, (TickType_t)portMAX_DELAY);
+  USCR0B |= _BV(UDRIE0);
   return 0;
 }
 
 int uart_receive(FILE *stream)
 {
   uint8_t data;
+  /*
   while(xQueueReceive(in, (void*)&data, (TickType_t)0) == pdFALSE) // xQueueReceiveFromISR useless
     vTaskDelay(10 / portTICK_PERIOD_MS);
+    */
+  xQueueReceive(in, (void*)&data, (TickType_t)portMAX_DELAY);
   return (char)data;
 }

@@ -54,170 +54,148 @@
  203               	/* stack size = 3 */
  204               	.L__stack_usage = 3
  205 000a 8983      		std Y+1,r24
-  34:uart.c        ****   if(uxQueueSpacesAvailable(out) == 0)
+  34:uart.c        ****   /*
+  35:uart.c        ****   if(uxQueueSpacesAvailable(out) == 0)
+  36:uart.c        ****     while (!(UCSR0A & _BV(UDRE0))) taskYIELD();
+  37:uart.c        ****   */
+  38:uart.c        ****   xQueueSend(out, (void*)&c, (TickType_t)portMAX_DELAY);
  207               	.LM1:
- 208 000c 8091 0000 		lds r24,out
- 209 0010 9091 0000 		lds r25,out+1
- 210 0014 0E94 0000 		call uxQueueSpacesAvailable
- 211 0018 8111      		cpse r24,__zero_reg__
- 212 001a 00C0      		rjmp .L4
- 213               	.L6:
-  35:uart.c        ****     while (!(UCSR0A & _BV(UDRE0))) taskYIELD();
- 215               	.LM2:
- 216 001c 8091 C000 		lds r24,192
- 217 0020 85FD      		sbrc r24,5
- 218 0022 00C0      		rjmp .L4
- 220               	.LM3:
- 221 0024 0E94 0000 		call vPortYield
- 222 0028 00C0      		rjmp .L6
- 223               	.L4:
-  36:uart.c        **** 
-  37:uart.c        ****   xQueueSend(out, (void*)&c, (TickType_t)0);
- 225               	.LM4:
- 226 002a 20E0      		ldi r18,0
- 227 002c 40E0      		ldi r20,0
- 228 002e 50E0      		ldi r21,0
- 229 0030 BE01      		movw r22,r28
- 230 0032 6F5F      		subi r22,-1
- 231 0034 7F4F      		sbci r23,-1
- 232 0036 8091 0000 		lds r24,out
- 233 003a 9091 0000 		lds r25,out+1
- 234 003e 0E94 0000 		call xQueueGenericSend
-  38:uart.c        ****   return 0;
-  39:uart.c        **** }
- 236               	.LM5:
- 237 0042 80E0      		ldi r24,0
- 238 0044 90E0      		ldi r25,0
- 239               	/* epilogue start */
- 240 0046 0F90      		pop __tmp_reg__
- 241 0048 DF91      		pop r29
- 242 004a CF91      		pop r28
- 243 004c 0895      		ret
- 245               	.Lscope1:
- 247               		.stabd	78,0,0
- 250               	.global	uart_receive
- 252               	uart_receive:
- 253               		.stabd	46,0,0
-  40:uart.c        **** 
-  41:uart.c        **** int uart_receive(FILE *stream)
-  42:uart.c        **** {
- 255               	.LM6:
- 256               	.LFBB2:
- 257 004e CF93      		push r28
- 258 0050 DF93      		push r29
- 259 0052 1F92      		push __zero_reg__
- 260 0054 CDB7      		in r28,__SP_L__
- 261 0056 DEB7      		in r29,__SP_H__
- 262               	/* prologue: function */
- 263               	/* frame size = 1 */
- 264               	/* stack size = 3 */
- 265               	.L__stack_usage = 3
- 266               	.L11:
-  43:uart.c        ****   uint8_t data;
-  44:uart.c        ****   while(xQueueReceive(in, (void*)&data, (TickType_t)0) == pdFALSE) // xQueueReceiveFromISR useless
- 268               	.LM7:
- 269 0058 40E0      		ldi r20,0
- 270 005a 50E0      		ldi r21,0
- 271 005c BE01      		movw r22,r28
- 272 005e 6F5F      		subi r22,-1
- 273 0060 7F4F      		sbci r23,-1
- 274 0062 8091 0000 		lds r24,in
- 275 0066 9091 0000 		lds r25,in+1
- 276 006a 0E94 0000 		call xQueueReceive
- 277 006e 8111      		cpse r24,__zero_reg__
- 278 0070 00C0      		rjmp .L13
-  45:uart.c        ****     vTaskDelay(10 / portTICK_PERIOD_MS);
- 280               	.LM8:
- 281 0072 8AE0      		ldi r24,lo8(10)
- 282 0074 90E0      		ldi r25,0
- 283 0076 0E94 0000 		call vTaskDelay
- 284 007a 00C0      		rjmp .L11
- 285               	.L13:
-  46:uart.c        ****   return (char)data;
- 287               	.LM9:
- 288 007c 8981      		ldd r24,Y+1
-  47:uart.c        **** }
- 290               	.LM10:
- 291 007e 082E      		mov __tmp_reg__,r24
- 292 0080 000C      		lsl r0
- 293 0082 990B      		sbc r25,r25
- 294               	/* epilogue start */
- 295 0084 0F90      		pop __tmp_reg__
- 296 0086 DF91      		pop r29
- 297 0088 CF91      		pop r28
- 298 008a 0895      		ret
- 303               	.Lscope2:
- 305               		.stabd	78,0,0
- 307               	.global	uart_init
- 309               	uart_init:
- 310               		.stabd	46,0,0
+ 208 000c 20E0      		ldi r18,0
+ 209 000e 4FEF      		ldi r20,lo8(-1)
+ 210 0010 5FEF      		ldi r21,lo8(-1)
+ 211 0012 BE01      		movw r22,r28
+ 212 0014 6F5F      		subi r22,-1
+ 213 0016 7F4F      		sbci r23,-1
+ 214 0018 8091 0000 		lds r24,out
+ 215 001c 9091 0000 		lds r25,out+1
+ 216 0020 0E94 0000 		call xQueueGenericSend
+  39:uart.c        **** 
+  40:uart.c        ****   return 0;
+  41:uart.c        **** }
+ 218               	.LM2:
+ 219 0024 80E0      		ldi r24,0
+ 220 0026 90E0      		ldi r25,0
+ 221               	/* epilogue start */
+ 222 0028 0F90      		pop __tmp_reg__
+ 223 002a DF91      		pop r29
+ 224 002c CF91      		pop r28
+ 225 002e 0895      		ret
+ 227               	.Lscope1:
+ 229               		.stabd	78,0,0
+ 232               	.global	uart_receive
+ 234               	uart_receive:
+ 235               		.stabd	46,0,0
+  42:uart.c        **** 
+  43:uart.c        **** int uart_receive(FILE *stream)
+  44:uart.c        **** {
+ 237               	.LM3:
+ 238               	.LFBB2:
+ 239 0030 CF93      		push r28
+ 240 0032 DF93      		push r29
+ 241 0034 1F92      		push __zero_reg__
+ 242 0036 CDB7      		in r28,__SP_L__
+ 243 0038 DEB7      		in r29,__SP_H__
+ 244               	/* prologue: function */
+ 245               	/* frame size = 1 */
+ 246               	/* stack size = 3 */
+ 247               	.L__stack_usage = 3
+  45:uart.c        ****   uint8_t data;
+  46:uart.c        ****   /*
+  47:uart.c        ****   while(xQueueReceive(in, (void*)&data, (TickType_t)0) == pdFALSE) // xQueueReceiveFromISR useless
+  48:uart.c        ****     vTaskDelay(10 / portTICK_PERIOD_MS);
+  49:uart.c        ****     */
+  50:uart.c        ****   xQueueReceive(in, (void*)&data, (TickType_t)portMAX_DELAY);
+ 249               	.LM4:
+ 250 003a 4FEF      		ldi r20,lo8(-1)
+ 251 003c 5FEF      		ldi r21,lo8(-1)
+ 252 003e BE01      		movw r22,r28
+ 253 0040 6F5F      		subi r22,-1
+ 254 0042 7F4F      		sbci r23,-1
+ 255 0044 8091 0000 		lds r24,in
+ 256 0048 9091 0000 		lds r25,in+1
+ 257 004c 0E94 0000 		call xQueueReceive
+  51:uart.c        ****   return (char)data;
+ 259               	.LM5:
+ 260 0050 8981      		ldd r24,Y+1
+  52:uart.c        **** }
+ 262               	.LM6:
+ 263 0052 082E      		mov __tmp_reg__,r24
+ 264 0054 000C      		lsl r0
+ 265 0056 990B      		sbc r25,r25
+ 266               	/* epilogue start */
+ 267 0058 0F90      		pop __tmp_reg__
+ 268 005a DF91      		pop r29
+ 269 005c CF91      		pop r28
+ 270 005e 0895      		ret
+ 275               	.Lscope2:
+ 277               		.stabd	78,0,0
+ 279               	.global	uart_init
+ 281               	uart_init:
+ 282               		.stabd	46,0,0
   20:uart.c        ****   UBRR0H = UBRRH_VALUE;
- 312               	.LM11:
- 313               	.LFBB3:
- 314               	/* prologue: function */
- 315               	/* frame size = 0 */
- 316               	/* stack size = 0 */
- 317               	.L__stack_usage = 0
+ 284               	.LM7:
+ 285               	.LFBB3:
+ 286               	/* prologue: function */
+ 287               	/* frame size = 0 */
+ 288               	/* stack size = 0 */
+ 289               	.L__stack_usage = 0
   21:uart.c        ****   UBRR0L = UBRRL_VALUE;
- 319               	.LM12:
- 320 008c 1092 C500 		sts 197,__zero_reg__
+ 291               	.LM8:
+ 292 0060 1092 C500 		sts 197,__zero_reg__
   22:uart.c        **** #if USE_2X
- 322               	.LM13:
- 323 0090 87E6      		ldi r24,lo8(103)
- 324 0092 8093 C400 		sts 196,r24
+ 294               	.LM9:
+ 295 0064 87E6      		ldi r24,lo8(103)
+ 296 0066 8093 C400 		sts 196,r24
   26:uart.c        **** #endif
- 326               	.LM14:
- 327 0096 E0EC      		ldi r30,lo8(-64)
- 328 0098 F0E0      		ldi r31,0
- 329 009a 8081      		ld r24,Z
- 330 009c 8D7F      		andi r24,lo8(-3)
- 331 009e 8083      		st Z,r24
+ 298               	.LM10:
+ 299 006a E0EC      		ldi r30,lo8(-64)
+ 300 006c F0E0      		ldi r31,0
+ 301 006e 8081      		ld r24,Z
+ 302 0070 8D7F      		andi r24,lo8(-3)
+ 303 0072 8083      		st Z,r24
   28:uart.c        ****   UCSR0B = _BV(RXEN0) | _BV(TXEN0) | _BV(RXCIE0) | _BV(UDRIE0); /* Enable RX and TX i włączamy in
- 333               	.LM15:
- 334 00a0 86E0      		ldi r24,lo8(6)
- 335 00a2 8093 C200 		sts 194,r24
+ 305               	.LM11:
+ 306 0074 86E0      		ldi r24,lo8(6)
+ 307 0076 8093 C200 		sts 194,r24
   29:uart.c        **** }
- 337               	.LM16:
- 338 00a6 88EB      		ldi r24,lo8(-72)
- 339 00a8 8093 C100 		sts 193,r24
- 340 00ac 0895      		ret
- 342               	.Lscope3:
- 344               		.stabd	78,0,0
- 345               		.comm	out,2,1
- 346               		.comm	in,2,1
- 347               	.global	uart_file
- 348               		.data
- 351               	uart_file:
- 352 0000 0000 00   		.zero	3
- 353 0003 03        		.byte	3
- 354 0004 0000 0000 		.zero	4
- 355 0008 0000      		.word	gs(uart_transmit)
- 356 000a 0000      		.word	gs(uart_receive)
- 357 000c 0000      		.word	0
- 361               		.text
- 363               	.Letext0:
- 364               		.ident	"GCC: (GNU) 5.4.0"
- 365               	.global __do_copy_data
- 366               	.global __do_clear_bss
+ 309               	.LM12:
+ 310 007a 88EB      		ldi r24,lo8(-72)
+ 311 007c 8093 C100 		sts 193,r24
+ 312 0080 0895      		ret
+ 314               	.Lscope3:
+ 316               		.stabd	78,0,0
+ 317               		.comm	out,2,1
+ 318               		.comm	in,2,1
+ 319               	.global	uart_file
+ 320               		.data
+ 323               	uart_file:
+ 324 0000 0000 00   		.zero	3
+ 325 0003 03        		.byte	3
+ 326 0004 0000 0000 		.zero	4
+ 327 0008 0000      		.word	gs(uart_transmit)
+ 328 000a 0000      		.word	gs(uart_receive)
+ 329 000c 0000      		.word	0
+ 333               		.text
+ 335               	.Letext0:
+ 336               		.ident	"GCC: (GNU) 5.4.0"
+ 337               	.global __do_copy_data
+ 338               	.global __do_clear_bss
 DEFINED SYMBOLS
                             *ABS*:0000000000000000 uart.c
-     /tmp/ccKyuTho.s:2      *ABS*:000000000000003e __SP_H__
-     /tmp/ccKyuTho.s:3      *ABS*:000000000000003d __SP_L__
-     /tmp/ccKyuTho.s:4      *ABS*:000000000000003f __SREG__
-     /tmp/ccKyuTho.s:5      *ABS*:0000000000000000 __tmp_reg__
-     /tmp/ccKyuTho.s:6      *ABS*:0000000000000001 __zero_reg__
-     /tmp/ccKyuTho.s:191    .text:0000000000000000 uart_transmit
+     /tmp/ccgwYaYU.s:2      *ABS*:000000000000003e __SP_H__
+     /tmp/ccgwYaYU.s:3      *ABS*:000000000000003d __SP_L__
+     /tmp/ccgwYaYU.s:4      *ABS*:000000000000003f __SREG__
+     /tmp/ccgwYaYU.s:5      *ABS*:0000000000000000 __tmp_reg__
+     /tmp/ccgwYaYU.s:6      *ABS*:0000000000000001 __zero_reg__
+     /tmp/ccgwYaYU.s:191    .text:0000000000000000 uart_transmit
                             *COM*:0000000000000002 out
-     /tmp/ccKyuTho.s:252    .text:000000000000004e uart_receive
+     /tmp/ccgwYaYU.s:234    .text:0000000000000030 uart_receive
                             *COM*:0000000000000002 in
-     /tmp/ccKyuTho.s:309    .text:000000000000008c uart_init
-     /tmp/ccKyuTho.s:351    .data:0000000000000000 uart_file
+     /tmp/ccgwYaYU.s:281    .text:0000000000000060 uart_init
+     /tmp/ccgwYaYU.s:323    .data:0000000000000000 uart_file
 
 UNDEFINED SYMBOLS
-uxQueueSpacesAvailable
-vPortYield
 xQueueGenericSend
 xQueueReceive
-vTaskDelay
 __do_copy_data
 __do_clear_bss
