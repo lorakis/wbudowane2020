@@ -102,7 +102,7 @@ int main()
           res[j] = data;
         }
         checksum+=1;
-        printf(":%02x %04x 00 ", record_length, addr);
+        printf(":%02x%04x00 ", record_length, addr);
 
         for(int j = 0; j < record_length; j++)
         {

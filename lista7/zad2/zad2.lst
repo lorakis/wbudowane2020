@@ -3,11 +3,11 @@ zad2.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .data         000001c8  00800100  00001f84  00002018  2**0
+  0 .data         000001c6  00800100  00001f84  00002018  2**0
                   CONTENTS, ALLOC, LOAD, DATA
   1 .text         00001f84  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  2 .bss          00000014  008002c8  008002c8  000021e0  2**0
+  2 .bss          00000014  008002c6  008002c6  000021de  2**0
                   ALLOC
   3 .stab         000014c4  00000000  00000000  000021e0  2**2
                   CONTENTS, READONLY, DEBUGGING
@@ -113,13 +113,13 @@ Disassembly of section .text:
      1ce:	02 c0       	rjmp	.+4      	; 0x1d4 <__do_copy_data+0x10>
      1d0:	05 90       	lpm	r0, Z+
      1d2:	0d 92       	st	X+, r0
-     1d4:	a8 3c       	cpi	r26, 0xC8	; 200
+     1d4:	a6 3c       	cpi	r26, 0xC6	; 198
      1d6:	b1 07       	cpc	r27, r17
      1d8:	d9 f7       	brne	.-10     	; 0x1d0 <__do_copy_data+0xc>
 
 000001da <__do_clear_bss>:
      1da:	22 e0       	ldi	r18, 0x02	; 2
-     1dc:	a8 ec       	ldi	r26, 0xC8	; 200
+     1dc:	a6 ec       	ldi	r26, 0xC6	; 198
      1de:	b2 e0       	ldi	r27, 0x02	; 2
      1e0:	01 c0       	rjmp	.+2      	; 0x1e4 <.do_clear_bss_start>
 
@@ -127,7 +127,7 @@ Disassembly of section .text:
      1e2:	1d 92       	st	X+, r1
 
 000001e4 <.do_clear_bss_start>:
-     1e4:	ac 3d       	cpi	r26, 0xDC	; 220
+     1e4:	aa 3d       	cpi	r26, 0xDA	; 218
      1e6:	b2 07       	cpc	r27, r18
      1e8:	e1 f7       	brne	.-8      	; 0x1e2 <.do_clear_bss_loop>
      1ea:	0e 94 e2 08 	call	0x11c4	; 0x11c4 <main>
@@ -2234,27 +2234,27 @@ int main()
   uart_init();
   // skonfiguruj strumienie wejścia/wyjścia
   fdev_setup_stream(&uart_file, uart_transmit, uart_receive, _FDEV_SETUP_RW);
-    11f6:	88 ec       	ldi	r24, 0xC8	; 200
+    11f6:	86 ec       	ldi	r24, 0xC6	; 198
     11f8:	92 e0       	ldi	r25, 0x02	; 2
     11fa:	2b ef       	ldi	r18, 0xFB	; 251
     11fc:	30 e0       	ldi	r19, 0x00	; 0
-    11fe:	30 93 d1 02 	sts	0x02D1, r19	; 0x8002d1 <__data_end+0x9>
-    1202:	20 93 d0 02 	sts	0x02D0, r18	; 0x8002d0 <__data_end+0x8>
+    11fe:	30 93 cf 02 	sts	0x02CF, r19	; 0x8002cf <__data_end+0x9>
+    1202:	20 93 ce 02 	sts	0x02CE, r18	; 0x8002ce <__data_end+0x8>
     1206:	24 e0       	ldi	r18, 0x04	; 4
     1208:	31 e0       	ldi	r19, 0x01	; 1
-    120a:	30 93 d3 02 	sts	0x02D3, r19	; 0x8002d3 <__data_end+0xb>
-    120e:	20 93 d2 02 	sts	0x02D2, r18	; 0x8002d2 <__data_end+0xa>
+    120a:	30 93 d1 02 	sts	0x02D1, r19	; 0x8002d1 <__data_end+0xb>
+    120e:	20 93 d0 02 	sts	0x02D0, r18	; 0x8002d0 <__data_end+0xa>
     1212:	23 e0       	ldi	r18, 0x03	; 3
-    1214:	20 93 cb 02 	sts	0x02CB, r18	; 0x8002cb <__data_end+0x3>
-    1218:	10 92 d5 02 	sts	0x02D5, r1	; 0x8002d5 <__data_end+0xd>
-    121c:	10 92 d4 02 	sts	0x02D4, r1	; 0x8002d4 <__data_end+0xc>
+    1214:	20 93 c9 02 	sts	0x02C9, r18	; 0x8002c9 <__data_end+0x3>
+    1218:	10 92 d3 02 	sts	0x02D3, r1	; 0x8002d3 <__data_end+0xd>
+    121c:	10 92 d2 02 	sts	0x02D2, r1	; 0x8002d2 <__data_end+0xc>
   stdin = stdout = stderr = &uart_file;
-    1220:	90 93 db 02 	sts	0x02DB, r25	; 0x8002db <__iob+0x5>
-    1224:	80 93 da 02 	sts	0x02DA, r24	; 0x8002da <__iob+0x4>
-    1228:	90 93 d9 02 	sts	0x02D9, r25	; 0x8002d9 <__iob+0x3>
-    122c:	80 93 d8 02 	sts	0x02D8, r24	; 0x8002d8 <__iob+0x2>
-    1230:	90 93 d7 02 	sts	0x02D7, r25	; 0x8002d7 <__iob+0x1>
-    1234:	80 93 d6 02 	sts	0x02D6, r24	; 0x8002d6 <__iob>
+    1220:	90 93 d9 02 	sts	0x02D9, r25	; 0x8002d9 <__iob+0x5>
+    1224:	80 93 d8 02 	sts	0x02D8, r24	; 0x8002d8 <__iob+0x4>
+    1228:	90 93 d7 02 	sts	0x02D7, r25	; 0x8002d7 <__iob+0x3>
+    122c:	80 93 d6 02 	sts	0x02D6, r24	; 0x8002d6 <__iob+0x2>
+    1230:	90 93 d5 02 	sts	0x02D5, r25	; 0x8002d5 <__iob+0x1>
+    1234:	80 93 d4 02 	sts	0x02D4, r24	; 0x8002d4 <__iob>
   // zainicjalizuj I2C
   i2cInit();
     1238:	0e 94 1b 01 	call	0x236	; 0x236 <i2cInit>
@@ -3041,7 +3041,7 @@ int main()
     1704:	3f 4f       	sbci	r19, 0xFF	; 255
     1706:	3a af       	std	Y+58, r19	; 0x3a
     1708:	29 af       	std	Y+57, r18	; 0x39
-        printf(":%02x %04x 00 ", record_length, addr);
+        printf(":%02x%04x00 ", record_length, addr);
     170a:	8c ad       	ldd	r24, Y+60	; 0x3c
     170c:	8f 93       	push	r24
     170e:	8b ad       	ldd	r24, Y+59	; 0x3b
@@ -3080,7 +3080,7 @@ int main()
           res[j] = data;
         }
         checksum+=1;
-        printf(":%02x %04x 00 ", record_length, addr);
+        printf(":%02x%04x00 ", record_length, addr);
 
         for(int j = 0; j < record_length; j++)
     174c:	0f 5f       	subi	r16, 0xFF	; 255
@@ -3238,7 +3238,7 @@ int main()
     1824:	3f 4f       	sbci	r19, 0xFF	; 255
     1826:	3a af       	std	Y+58, r19	; 0x3a
     1828:	29 af       	std	Y+57, r18	; 0x39
-        printf(":%02x %04x 00 ", record_length, addr);
+        printf(":%02x%04x00 ", record_length, addr);
     182a:	9f 93       	push	r25
     182c:	8f 93       	push	r24
     182e:	1f 92       	push	r1
@@ -4021,8 +4021,8 @@ int main()
     1de8:	61 91       	ld	r22, Z+
     1dea:	71 91       	ld	r23, Z+
     1dec:	af 01       	movw	r20, r30
-    1dee:	80 91 d8 02 	lds	r24, 0x02D8	; 0x8002d8 <__iob+0x2>
-    1df2:	90 91 d9 02 	lds	r25, 0x02D9	; 0x8002d9 <__iob+0x3>
+    1dee:	80 91 d6 02 	lds	r24, 0x02D6	; 0x8002d6 <__iob+0x2>
+    1df2:	90 91 d7 02 	lds	r25, 0x02D7	; 0x8002d7 <__iob+0x3>
     1df6:	0e 94 57 01 	call	0x2ae	; 0x2ae <vfprintf>
     1dfa:	e2 e0       	ldi	r30, 0x02	; 2
     1dfc:	0c 94 57 0c 	jmp	0x18ae	; 0x18ae <__epilogue_restores__+0x20>
@@ -4032,8 +4032,8 @@ int main()
     1e02:	1f 93       	push	r17
     1e04:	cf 93       	push	r28
     1e06:	df 93       	push	r29
-    1e08:	e0 91 d8 02 	lds	r30, 0x02D8	; 0x8002d8 <__iob+0x2>
-    1e0c:	f0 91 d9 02 	lds	r31, 0x02D9	; 0x8002d9 <__iob+0x3>
+    1e08:	e0 91 d6 02 	lds	r30, 0x02D6	; 0x8002d6 <__iob+0x2>
+    1e0c:	f0 91 d7 02 	lds	r31, 0x02D7	; 0x8002d7 <__iob+0x3>
     1e10:	23 81       	ldd	r18, Z+3	; 0x03
     1e12:	21 ff       	sbrs	r18, 1
     1e14:	1b c0       	rjmp	.+54     	; 0x1e4c <puts+0x4c>
@@ -4043,8 +4043,8 @@ int main()
     1e1c:	f8 01       	movw	r30, r16
     1e1e:	81 91       	ld	r24, Z+
     1e20:	8f 01       	movw	r16, r30
-    1e22:	60 91 d8 02 	lds	r22, 0x02D8	; 0x8002d8 <__iob+0x2>
-    1e26:	70 91 d9 02 	lds	r23, 0x02D9	; 0x8002d9 <__iob+0x3>
+    1e22:	60 91 d6 02 	lds	r22, 0x02D6	; 0x8002d6 <__iob+0x2>
+    1e26:	70 91 d7 02 	lds	r23, 0x02D7	; 0x8002d7 <__iob+0x3>
     1e2a:	db 01       	movw	r26, r22
     1e2c:	18 96       	adiw	r26, 0x08	; 8
     1e2e:	ed 91       	ld	r30, X+
@@ -4086,8 +4086,8 @@ int main()
     1e74:	61 91       	ld	r22, Z+
     1e76:	71 91       	ld	r23, Z+
     1e78:	af 01       	movw	r20, r30
-    1e7a:	80 91 d6 02 	lds	r24, 0x02D6	; 0x8002d6 <__iob>
-    1e7e:	90 91 d7 02 	lds	r25, 0x02D7	; 0x8002d7 <__iob+0x1>
+    1e7a:	80 91 d4 02 	lds	r24, 0x02D4	; 0x8002d4 <__iob>
+    1e7e:	90 91 d5 02 	lds	r25, 0x02D5	; 0x8002d5 <__iob+0x1>
     1e82:	0e 94 b0 07 	call	0xf60	; 0xf60 <vfscanf>
     1e86:	e2 e0       	ldi	r30, 0x02	; 2
     1e88:	0c 94 57 0c 	jmp	0x18ae	; 0x18ae <__epilogue_restores__+0x20>

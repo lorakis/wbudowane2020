@@ -2155,10 +2155,10 @@ void adc_init()
     11d0:	25 9a       	sbi	0x04, 5	; 4
     ADCSRA |= _BV(ADIF); // wyczyść bit ADIF (pisząc 1!)
     uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
-
     v = v >> 6;
-
     v = 1 << v;
+    
+    LED_PORT |= _BV(LED); // on
     11d2:	22 24       	eor	r2, r2
     11d4:	23 94       	inc	r2
     11d6:	31 2c       	mov	r3, r1
@@ -2190,10 +2190,10 @@ _delay_loop_2(uint16_t __count)
     uint16_t v = ADC; // weź zmierzoną wartość (0..1023)
     11f8:	80 91 78 00 	lds	r24, 0x0078	; 0x800078 <__TEXT_REGION_LENGTH__+0x7e0078>
     11fc:	90 91 79 00 	lds	r25, 0x0079	; 0x800079 <__TEXT_REGION_LENGTH__+0x7e0079>
-
     v = v >> 6;
-
     v = 1 << v;
+    
+    LED_PORT |= _BV(LED); // on
     1200:	00 24       	eor	r0, r0
     1202:	88 0f       	add	r24, r24
     1204:	99 1f       	adc	r25, r25
@@ -2211,10 +2211,10 @@ _delay_loop_2(uint16_t __count)
     121c:	e2 f7       	brpl	.-8      	; 0x1216 <main+0xc8>
     121e:	3c 83       	std	Y+4, r19	; 0x04
     1220:	2b 83       	std	Y+3, r18	; 0x03
-
-    LED_PORT |= _BV(LED); // on
-    1222:	2d 9a       	sbi	0x05, 5	; 5
     _delay_us(v/2);
+    LED_PORT &= ~_BV(LED); // off
+    1222:	2d 9a       	sbi	0x05, 5	; 5
+    _delay_us((32769-v)/2);
     1224:	b9 01       	movw	r22, r18
     1226:	76 95       	lsr	r23
     1228:	67 95       	ror	r22
@@ -2355,9 +2355,9 @@ _delay_loop_1(uint8_t __count)
     12ec:	8a 81       	ldd	r24, Y+2	; 0x02
     12ee:	8a 95       	dec	r24
     12f0:	f1 f7       	brne	.-4      	; 0x12ee <main+0x1a0>
-    LED_PORT &= ~_BV(LED); // off
+  }
     12f2:	2d 98       	cbi	0x05, 5	; 5
-    _delay_us((32769-v)/2);
+}
     12f4:	81 e0       	ldi	r24, 0x01	; 1
     12f6:	90 e8       	ldi	r25, 0x80	; 128
     12f8:	a0 e0       	ldi	r26, 0x00	; 0

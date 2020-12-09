@@ -129,8 +129,12 @@ static void vSerial(void* pvParameters)
 
     for ( ;; )
     {
-        input = getchar();
-        printf("%c\r\n", input);
+      
+      input = getchar;
+      for(int i =0; i<10; i++)
+        //printf("%d\r\n", i);
+        putchar('0'+i);
+
     }
 }
 
@@ -138,6 +142,8 @@ ISR(USART_UDRE_vect)
 {
   if(xQueueIsQueueEmptyFromISR(out) == pdFALSE)
     xQueueReceiveFromISR(out, (void*)&UDR0, NULL);
+  else
+    USCR0B &= ~_BV(UDRIE0);
 }
 
 ISR(USART_RX_vect)

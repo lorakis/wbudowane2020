@@ -33,7 +33,7 @@ static void vADC(void* pvParameters);
  * Public function definitions.
  ******************************************************************************/
 
-SemaphoreHandle_t mutex_r, mutex_a;
+SemaphoreHandle_t mutex_r, mutex_a, mutex_z;
 uint8_t i = 0;
 
 void adc_init()
@@ -47,10 +47,12 @@ void adc_init()
 
 uint16_t readADC(uint8_t mux)
 {
+  xSemaphoreTake(mutex_z, portMAX_DELAY);
   ADMUX = _BV(REFS0) | mux;
   ADCSRA |= _BV(ADSC);
   xSemaphoreTake(mutex_a, portMAX_DELAY); // blokada na mutex a
   uint16_t w = ADC;
+  xSemaphoreGive(mutex_z);
   return w;
 }
 
@@ -76,7 +78,7 @@ int main(void)
   xTaskHandle adc2_handle;
   mutex_a = xSemaphoreCreateMutex();
   mutex_r = xSemaphoreCreateMutex();
-  xSemaphoreTake(mutex_a, portMAX_DELAY);
+  mutex_z = xSemaphoreCreateMutex();
 
     xTaskCreate
         (
