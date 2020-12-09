@@ -12,24 +12,30 @@
 #define F 1400
 #define G 1275
 #define A 1160
-#define B 1100
-#define H 1050
-#define c 955   // done
-#define cis 920
-#define d 852 // done
-#define e 758   // done
-#define f 716 // done
+#define B 1060 //done
+#define H 995 //done
+#define c 940 //done
+#define cis 885 // done
+#define d 835 // done
+#define e 743 // done
+#define f 700 // done
 #define fis 690
-#define g 638 // done
-#define a 568 // done
-#define b 530
-#define h 506 // done
-#define c2 478  // done
-#define d2 426  // done
-#define e2 380
-#define f2 327
+#define g 622 // done
+#define gis 587 // done
+#define a 553 // done
+#define b 520 // done
+#define h 490 // done
+#define c2 462 // done
+#define d2 410 // done
+#define e2 363 // done
+#define f2 343 // done
 #define fis2 300
-#define g2 280
+#define g2 303 // done
+#define gis2 285 //done
+#define a2 269 // done
+#define h2 230
+#define c3 222 // done
+#define d3 197
 #define x 0
 
 #define n1 1600
@@ -46,7 +52,13 @@
       BUZZ_PORT &= ~_BV(BUZZ); \
       _delay_us(step); \
     }
+static const uint16_t test[] PROGMEM = {
+  d3
 
+};
+static const uint16_t test_tempo[] PROGMEM = {
+  n1
+};
 static const uint16_t astro[] PROGMEM = {
   G, x, G, d, c, x, B, x,
   A, x, A, A, c, x, B, A,
@@ -88,22 +100,82 @@ static const int astro_tempo[] PROGMEM = {
   n8, n8, n8, n8, n8, n8, n8, n8
 };
 
+static const uint16_t undertale[] PROGMEM = {
+  d, d, d2, a, x, gis, g, x, f, f, d, f, g,
+  c, c, d2, a, x, gis, g, x, f, f, d, f, g,
+  H, H, d2, a, x, gis, g, x, f, f, d, f, g,
+  B, B, d2, a, x, gis, g, x, f, f, d, f, g, //13
 
+  d, d, d2, a, x, gis, g, x, f, f, d, f, g,
+  c, c, d2, a, x, gis, g, x, f, f, d, f, g,
+  H, H, d2, a, x, gis, g, x, f, f, d, f, g,
+  B, B, d2, a, x, gis, g, x, f, f, d, f, g,
 
+  d2, d2, d3, a2, gis2, g2, f2, d2, f2, g2,
+  c2, c2, d3, a2, gis2, g2, f2, d2, f2, g2,
+  h, h, d3, a2, gis2, g2, f2, d2, f2, g2,
+  b, b, d3, a2, gis2, g2, f2, d2, f2, g2,
+
+  d2, d2, d3, a2, gis2, g2, f2, d2, f2, g2,
+  c2, c2, d3, a2, gis2, g2, f2, d2, f2, g2,
+  h, h, d3, a2, gis2, g2, f2, d2, f2, g2,
+  b, b, d3, a2, gis2, g2, f2, d2, f2, g2,
+
+  f2, f2, f2, f2, f2, d2, d2, d2, //8
+  f2, f2, f2, g2, gis2, g2, f2, d2, f2, g2, x, //11
+  f2, f2, f2, g2,  gis2, a2, c3, a2, //8
+  d3, d3, d3, a2, d3, c3, c3, //7
+  //218
+  f2, f2, f2, f2, f2, d2, d2, d2, //8
+  f2, f2, f2, f2, d2, f2, e2, d2, c2, // 9
+  x, g2, e2, f2, f2, f2, f2, f, g, //9
+  b, c2, d2, f2, c3, c3, x, x //6
+  //250
+};
+
+static const uint16_t undertale_tempo[] PROGMEM = {
+  n16, n16, n8, n8, n16, n16, n16, n16, n16, n16, n16, n16, n16, n16,
+  n16, n16, n8, n8, n16, n16, n16, n16, n16, n16, n16, n16, n16, n16,
+  n16, n16, n8, n8, n16, n16, n16, n16, n16, n16, n16, n16, n16, n16,
+  n16, n16, n8, n8, n16, n16, n16, n16, n16, n16, n16, n16, n16, n16,
+
+  n16, n16, n8, n8, n16, n16, n16, n16, n16, n16, n16, n16, n16, n16,
+  n16, n16, n8, n8, n16, n16, n16, n16, n16, n16, n16, n16, n16, n16,
+  n16, n16, n8, n8, n16, n16, n16, n16, n16, n16, n16, n16, n16, n16,
+  n16, n16, n8, n8, n16, n16, n16, n16, n16, n16, n16, n16, n16, n16,
+  // 104
+  n16, n16, n8, n8, n8, n8, n8, n16, n16, n16,  //10
+  n16, n16, n8, n8, n8, n8, n8, n16, n16, n16,  //10
+  n16, n16, n8, n8, n8, n8, n8, n16, n16, n16,  //10
+  n16, n16, n8, n8, n8, n8, n8, n16, n16, n16,  //10
+
+  n16, n16, n8, n8, n8, n8, n8, n16, n16, n16,  //10
+  n16, n16, n8, n8, n8, n8, n8, n16, n16, n16,  //10
+  n16, n16, n8, n8, n8, n8, n8, n16, n16, n16,  //10
+  n16, n16, n8, n8, n8, n8, n8, n16, n16, n16,  //10
+
+  n8, n16, n8, n8, n8, n8, n8, n16,
+  n8, n16, n8, n8, n8, n16, n16, n16, n16, n16, n8,
+  n8, n16, n8, n8, n8, n8, n8, n8,
+  n8, n8, n16, n16, n16, n16, n2,
+
+  n8, n16, n8, n8, n8, n8, n8, n16,
+  n8, n16, n8, n8, n8, n8, n8, n16, n8,
+  n16, n8, n8, n8, n8, n8, n8, n8, n16,
+  n8, n16, n8, n8, n16, n2, n1, n1
+};
 
 int main() {
   BUZZ_DDR |= _BV(BUZZ);
 
   while (1)
   {
-    for(int i = 0; i < 128; i++)
+    for(int i = 0; i < 252; i++)
     {
-      //TONE(pgm_read_byte(&utwor[i]),pgm_read_byte(&tempo[i]));
-
-      int wartosc = pgm_read_word(&astro[i]);
-      int dlugosc = pgm_read_word(&astro_tempo[i]);
+      int wartosc = pgm_read_word(&undertale[i]);
+      int dlugosc = pgm_read_word(&undertale_tempo[i]);
       if(wartosc == 0)
-        _delay_ms( (dlugosc) );
+        _delay_ms( (dlugosc)/2 );
       else
         TONE(wartosc,dlugosc);
 
