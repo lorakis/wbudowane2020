@@ -2171,7 +2171,7 @@ void timer1_init()
     11f2:	8f 93       	push	r24
     11f4:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     11f8:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     11fc:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   a3 = a1-a2;
@@ -2179,7 +2179,7 @@ void timer1_init()
     1202:	98 ad       	ldd	r25, Y+56	; 0x38
     1204:	89 1b       	sub	r24, r25
     1206:	8f ab       	std	Y+55, r24	; 0x37
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     1208:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     120c:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas odejmowania int8_t: %"PRIu16" cykli\r\n", b - a);
@@ -2193,7 +2193,7 @@ void timer1_init()
     121e:	8f 93       	push	r24
     1220:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     1224:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1228:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   a3 = a1*a2;
@@ -2203,7 +2203,7 @@ void timer1_init()
     1232:	80 2d       	mov	r24, r0
     1234:	11 24       	eor	r1, r1
     1236:	8f ab       	std	Y+55, r24	; 0x37
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     1238:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     123c:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas mnożenia int8_t: %"PRIu16" cykli\r\n", b - a);
@@ -2217,7 +2217,7 @@ void timer1_init()
     124e:	8f 93       	push	r24
     1250:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     1254:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1258:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   a3 = a1/a2;
@@ -2231,7 +2231,7 @@ void timer1_init()
     126a:	77 0b       	sbc	r23, r23
     126c:	0e 94 88 0b 	call	0x1710	; 0x1710 <__divmodhi4>
     1270:	6f ab       	std	Y+55, r22	; 0x37
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     1272:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1276:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas dzielenia int8_t: %"PRIu16" cykli\r\n", b - a);
@@ -2247,7 +2247,7 @@ void timer1_init()
 
 
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     128e:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1292:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   b3 = b1+b2;
@@ -2259,7 +2259,7 @@ void timer1_init()
     12a0:	95 1f       	adc	r25, r21
     12a2:	9a ab       	std	Y+50, r25	; 0x32
     12a4:	89 ab       	std	Y+49, r24	; 0x31
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     12a6:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     12aa:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas dodawania int16_t: %"PRIu16" cykli\r\n", b - a);
@@ -2273,7 +2273,7 @@ void timer1_init()
     12bc:	8f 93       	push	r24
     12be:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     12c2:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     12c6:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   b3 = b1-b2;
@@ -2285,7 +2285,7 @@ void timer1_init()
     12d4:	95 0b       	sbc	r25, r21
     12d6:	9a ab       	std	Y+50, r25	; 0x32
     12d8:	89 ab       	std	Y+49, r24	; 0x31
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     12da:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     12de:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas odejmowania int16_t: %"PRIu16" cykli\r\n", b - a);
@@ -2299,7 +2299,7 @@ void timer1_init()
     12f0:	8f 93       	push	r24
     12f2:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     12f6:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     12fa:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   b3 = b1*b2;
@@ -2316,7 +2316,7 @@ void timer1_init()
     1312:	11 24       	eor	r1, r1
     1314:	9a ab       	std	Y+50, r25	; 0x32
     1316:	89 ab       	std	Y+49, r24	; 0x31
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     1318:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     131c:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas mnożenia int16_t: %"PRIu16" cykli\r\n", b - a);
@@ -2330,7 +2330,7 @@ void timer1_init()
     132e:	8f 93       	push	r24
     1330:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     1334:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1338:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   b3 = b1/b2;
@@ -2341,7 +2341,7 @@ void timer1_init()
     1344:	0e 94 88 0b 	call	0x1710	; 0x1710 <__divmodhi4>
     1348:	7a ab       	std	Y+50, r23	; 0x32
     134a:	69 ab       	std	Y+49, r22	; 0x31
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     134c:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1350:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas dzielenia int16_t: %"PRIu16" cykli\r\n", b - a);
@@ -2357,7 +2357,7 @@ void timer1_init()
 
 
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     1368:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     136c:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   c3 = c1+c2;
@@ -2377,7 +2377,7 @@ void timer1_init()
     138a:	9e a3       	std	Y+38, r25	; 0x26
     138c:	af a3       	std	Y+39, r26	; 0x27
     138e:	b8 a7       	std	Y+40, r27	; 0x28
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     1390:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1394:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas dodawania int32_t: %"PRIu16" cykli\r\n", b - a);
@@ -2396,7 +2396,7 @@ void timer1_init()
     13b0:	8f 93       	push	r24
     13b2:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     13b6:	20 91 84 00 	lds	r18, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     13ba:	30 91 85 00 	lds	r19, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   c3 = c1-c2;
@@ -2416,7 +2416,7 @@ void timer1_init()
     13d8:	9e a3       	std	Y+38, r25	; 0x26
     13da:	af a3       	std	Y+39, r26	; 0x27
     13dc:	b8 a7       	std	Y+40, r27	; 0x28
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     13de:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     13e2:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas odejmowania int32_t: %"PRIu16" cykli\r\n", b - a);
@@ -2430,7 +2430,7 @@ void timer1_init()
     13f4:	8f 93       	push	r24
     13f6:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     13fa:	e0 91 84 00 	lds	r30, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     13fe:	f0 91 85 00 	lds	r31, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   c3 = c1*c2;
@@ -2447,7 +2447,7 @@ void timer1_init()
     1418:	7e a3       	std	Y+38, r23	; 0x26
     141a:	8f a3       	std	Y+39, r24	; 0x27
     141c:	98 a7       	std	Y+40, r25	; 0x28
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     141e:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1422:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas mnożenia int32_t: %"PRIu16" cykli\r\n", b - a);
@@ -2461,7 +2461,7 @@ void timer1_init()
     1434:	8f 93       	push	r24
     1436:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     143a:	00 91 84 00 	lds	r16, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     143e:	10 91 85 00 	lds	r17, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   c3 = c1/c2;
@@ -2478,7 +2478,7 @@ void timer1_init()
     1458:	3e a3       	std	Y+38, r19	; 0x26
     145a:	4f a3       	std	Y+39, r20	; 0x27
     145c:	58 a7       	std	Y+40, r21	; 0x28
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     145e:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1462:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas dzielenia int32_t: %"PRIu16" cykli\r\n", b - a);
@@ -2494,7 +2494,7 @@ void timer1_init()
 
 
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     147a:	e0 91 84 00 	lds	r30, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     147e:	f0 91 85 00 	lds	r31, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   d3 = d1+d2;
@@ -2523,7 +2523,7 @@ void timer1_init()
     14b0:	7e 83       	std	Y+6, r23	; 0x06
     14b2:	8f 83       	std	Y+7, r24	; 0x07
     14b4:	98 87       	std	Y+8, r25	; 0x08
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     14b6:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     14ba:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas dodawania int64_t: %"PRIu16" cykli\r\n", b - a);
@@ -2537,7 +2537,7 @@ void timer1_init()
     14cc:	8f 93       	push	r24
     14ce:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     14d2:	e0 91 84 00 	lds	r30, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     14d6:	f0 91 85 00 	lds	r31, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   d3 = d1-d2;
@@ -2566,7 +2566,7 @@ void timer1_init()
     1508:	7e 83       	std	Y+6, r23	; 0x06
     150a:	8f 83       	std	Y+7, r24	; 0x07
     150c:	98 87       	std	Y+8, r25	; 0x08
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     150e:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1512:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas odejmowania int64_t: %"PRIu16" cykli\r\n", b - a);
@@ -2580,7 +2580,7 @@ void timer1_init()
     1524:	8f 93       	push	r24
     1526:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     152a:	80 90 84 00 	lds	r8, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     152e:	90 90 85 00 	lds	r9, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   d3 = d1*d2;
@@ -2609,7 +2609,7 @@ void timer1_init()
     1560:	7e 83       	std	Y+6, r23	; 0x06
     1562:	8f 83       	std	Y+7, r24	; 0x07
     1564:	98 87       	std	Y+8, r25	; 0x08
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     1566:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     156a:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas mnożenia int64_t: %"PRIu16" cykli\r\n", b - a);
@@ -2623,7 +2623,7 @@ void timer1_init()
     157c:	8f 93       	push	r24
     157e:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     1582:	80 90 84 00 	lds	r8, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1586:	90 90 85 00 	lds	r9, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   d3 = d1/d2;
@@ -2652,7 +2652,7 @@ void timer1_init()
     15b8:	7e 83       	std	Y+6, r23	; 0x06
     15ba:	8f 83       	std	Y+7, r24	; 0x07
     15bc:	98 87       	std	Y+8, r25	; 0x08
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     15be:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     15c2:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas dzielenia int64_t: %"PRIu16" cykli\r\n", b - a);
@@ -2667,7 +2667,7 @@ void timer1_init()
     15d6:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     15da:	00 91 84 00 	lds	r16, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     15de:	10 91 85 00 	lds	r17, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   e3 = e1+e2;
@@ -2684,7 +2684,7 @@ void timer1_init()
     15f8:	7a 8f       	std	Y+26, r23	; 0x1a
     15fa:	8b 8f       	std	Y+27, r24	; 0x1b
     15fc:	9c 8f       	std	Y+28, r25	; 0x1c
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     15fe:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1602:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas dodawania float: %"PRIu16" cykli\r\n", b - a);
@@ -2703,7 +2703,7 @@ void timer1_init()
     161e:	8f 93       	push	r24
     1620:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     1624:	00 91 84 00 	lds	r16, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1628:	10 91 85 00 	lds	r17, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   e3 = e1-e2;
@@ -2720,7 +2720,7 @@ void timer1_init()
     1642:	7a 8f       	std	Y+26, r23	; 0x1a
     1644:	8b 8f       	std	Y+27, r24	; 0x1b
     1646:	9c 8f       	std	Y+28, r25	; 0x1c
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     1648:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     164c:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas odejmowania float: %"PRIu16" cykli\r\n", b - a);
@@ -2734,7 +2734,7 @@ void timer1_init()
     165e:	8f 93       	push	r24
     1660:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     1664:	00 91 84 00 	lds	r16, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     1668:	10 91 85 00 	lds	r17, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   e3 = e1*e2;
@@ -2751,7 +2751,7 @@ void timer1_init()
     1682:	7a 8f       	std	Y+26, r23	; 0x1a
     1684:	8b 8f       	std	Y+27, r24	; 0x1b
     1686:	9c 8f       	std	Y+28, r25	; 0x1c
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     1688:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     168c:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas mnożenia float: %"PRIu16" cykli\r\n", b - a);
@@ -2765,7 +2765,7 @@ void timer1_init()
     169e:	8f 93       	push	r24
     16a0:	0e 94 ab 10 	call	0x2156	; 0x2156 <printf>
 
-   a = TCNT1; // wartość licznika przed czekaniem
+  a = TCNT1; // wartość licznika przed czekaniem
     16a4:	00 91 84 00 	lds	r16, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     16a8:	10 91 85 00 	lds	r17, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   e3 = e1/e2;
@@ -2782,7 +2782,7 @@ void timer1_init()
     16c2:	7a 8f       	std	Y+26, r23	; 0x1a
     16c4:	8b 8f       	std	Y+27, r24	; 0x1b
     16c6:	9c 8f       	std	Y+28, r25	; 0x1c
-   b = TCNT1; // wartość licznika po czekaniu
+  b = TCNT1; // wartość licznika po czekaniu
     16c8:	80 91 84 00 	lds	r24, 0x0084	; 0x800084 <__TEXT_REGION_LENGTH__+0x7e0084>
     16cc:	90 91 85 00 	lds	r25, 0x0085	; 0x800085 <__TEXT_REGION_LENGTH__+0x7e0085>
   printf("Czas dzielenia float: %"PRIu16" cykli\r\n", b - a);

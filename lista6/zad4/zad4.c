@@ -10,6 +10,7 @@ void spi_init(){
     SPCR = _BV(SPE) | _BV(MSTR) | _BV(SPR1);
 }
 
+
 // transfer jednego bajtu
 void spi_transfer(uint8_t data){
     // rozpocznij transmisję

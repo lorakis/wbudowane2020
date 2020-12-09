@@ -84,7 +84,7 @@ Disassembly of section .text:
   8e:	00 c0       	rjmp	.+0      	; 0x90 <left+0x10>
   90:	00 00       	nop
 #define LED_PORT PORTD
-
+//xD
 void left()
 {
   _delay_ms(200);
@@ -146,7 +146,7 @@ int main() {
   d8:	00 c0       	rjmp	.+0      	; 0xda <main+0x26>
   da:	00 00       	nop
 #define LED_PORT PORTD
-
+//xD
 void left()
 {
   _delay_ms(200);

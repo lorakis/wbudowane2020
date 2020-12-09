@@ -124,7 +124,7 @@ void spi_init(){
      1da:	08 95       	ret
 
 000001dc <spi_transfer>:
-}
+
 
 // transfer jednego bajtu
 void spi_transfer(uint8_t data){
@@ -2086,7 +2086,7 @@ int main() {
     1152:	29 9a       	sbi	0x05, 1	; 5
       spi_transfer(tab[i]);
     1154:	81 91       	ld	r24, Z+
-}
+
 
 // transfer jednego bajtu
 void spi_transfer(uint8_t data){

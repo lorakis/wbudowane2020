@@ -1,5 +1,7 @@
 #include <avr/io.h>
 #include <stdio.h>
+#include <avr/sleep.h>
+#include <avr/interrupt.h>
 #include <inttypes.h>
 
 #define BAUD 9600                          // baudrate
@@ -18,9 +20,12 @@ void uart_init()
   UCSR0C = _BV(UCSZ00) | _BV(UCSZ01);
 }
 
+volatile int data = 0;
+
 // odczyt jednego znaku
 ISR(USART_RX_vect)
 {
+
   UCSR0B &= ~_BV(RXCIE0); // wyłączamy przerwanie czytania
   data = UDR0; // odczyt
   UDR0 = data; // transmitujemy

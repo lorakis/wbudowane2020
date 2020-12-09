@@ -197,7 +197,7 @@ void uart_init()
 // inicjalizacja ADC
 void adc_init()
 {
-  ADMUX   = 0b01001110; // referencja AVcc, wejście ADC0
+  ADMUX   =  0b01001110; // referencja AVcc, wejście ADC0
      232:	8e e4       	ldi	r24, 0x4E	; 78
      234:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7e007c>
   // DIDR0   = _BV(ADC0D); // wyłącz wejście cyfrowe na ADC0
@@ -2138,7 +2138,7 @@ void uart_init()
 // inicjalizacja ADC
 void adc_init()
 {
-  ADMUX   = 0b01001110; // referencja AVcc, wejście ADC0
+  ADMUX   =  0b01001110; // referencja AVcc, wejście ADC0
     11ba:	8e e4       	ldi	r24, 0x4E	; 78
     11bc:	80 93 7c 00 	sts	0x007C, r24	; 0x80007c <__TEXT_REGION_LENGTH__+0x7e007c>
   // DIDR0   = _BV(ADC0D); // wyłącz wejście cyfrowe na ADC0
