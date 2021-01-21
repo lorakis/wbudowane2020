@@ -44,19 +44,19 @@ void timer_init()
 }
 
 bool f = false;
-int val;
+int val, val2;
 
 ISR(TIMER1_CAPT_vect)
 {
   if (!f)
   {
-    TCNT1 = 0;
+    val2 = ICR1;
     f = true;
   }
   else
   {
     f = false;
-    val = 62500 / ICR1;
+    val = 62500 / (ICR1 - val2);
   }
 }
 
